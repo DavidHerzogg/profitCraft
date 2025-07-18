@@ -1,0 +1,162 @@
+/* Overlay bleibt dunkel, aber etwas transparenter */
+.trade-info-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  backdrop-filter: blur(4px); /* leichter Unschärfe-Effekt */
+}
+
+/* Panel moderner */
+.trade-info-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(145deg, #122434, #0b1929);
+  color: #f0f0f0;
+  border-radius: 12px;
+  border: solid 1px var(--PrimaryColor);
+  padding: 28px 32px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 85vh;
+  overflow-y: auto;
+  z-index: 1100;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.6),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Scrollbar modern & schlank */
+.trade-info-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.trade-info-panel::-webkit-scrollbar-track {
+  background: #101f34;
+}
+
+.trade-info-panel::-webkit-scrollbar-thumb {
+  background: #dbaf58;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.trade-info-panel::-webkit-scrollbar-thumb:hover {
+  background: #f0c85e;
+}
+
+/* Firefox scrollbar */
+.trade-info-panel {
+  scrollbar-width: thin;
+  scrollbar-color: #dbaf58 #101f34;
+}
+
+/* Header klarer & eleganter */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dbaf58;
+  padding-bottom: 8px;
+}
+
+.header h2 {
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: #f2d36e;
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #dbaf58;
+  font-size: 28px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #f2d36e;
+}
+
+/* Bild oben mit Schatten & Hover */
+.image-wrapper img {
+  max-width: 100%;
+  border-radius: 14px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.image-wrapper img:hover {
+  transform: scale(1.04);
+}
+
+/* Textinhalt mit klarer Struktur */
+.content p {
+  margin: 8px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #ddd;
+  border-bottom: 1px solid #2c3a4a;
+  padding-bottom: 6px;
+  transition: background-color 0.2s ease;
+  border-radius: 6px;
+}
+
+.content p strong {
+  color: #dbaf58;
+  min-width: 110px;
+  display: inline-block;
+}
+
+/* Hover Effekt für Textzeilen */
+.content p:hover {
+  background-color: rgba(219, 175, 88, 0.1);
+}
+
+/* Bild Fehler-Text dezenter */
+.image-error {
+  color: #aaa;
+  font-style: italic;
+  margin-top: 14px;
+  text-align: center;
+}
+
+/* Lightbox Overlay */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1200;
+  cursor: zoom-out;
+  backdrop-filter: blur(8px);
+}
+
+.lightbox-image {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 14px;
+  transition: transform 0.3s ease;
+}
+
+.lightbox-image:hover {
+  transform: scale(1.03);
+}

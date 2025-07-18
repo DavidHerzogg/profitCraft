@@ -1,0 +1,96 @@
+.payment-fullscreen {
+  width: 100vw;
+  height: 100vh;
+  background: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.payment-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+  background: #e0e0e0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.151);
+  border-radius: 16px;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.payment-card h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+.details {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.details div {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+.benefits {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.benefits li {
+  margin: 0.3rem 0;
+}
+
+.legal {
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 1rem;
+}
+
+.legal a {
+  color: #007acc;
+  text-decoration: underline;
+}
+
+.Payment_button {
+  margin-top: 1.2rem;
+  padding: 0.9rem 1.8rem;
+  background: #007acc;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease background;
+}
+
+.Payment_button:hover {
+  background: #005e99;
+}
+
+.back-button {
+  position: absolute;
+  top: 50px;
+  left: 24px;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: #007acc;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #007acc;
+  color: white;
+}

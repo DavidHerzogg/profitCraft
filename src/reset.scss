@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Saira+Condensed:wght@100;200;300;400;500;600;700;800;900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    --BackgroundColor: #0b1825;
+    --SurfaceColor: #162428;
+    --PrimaryColor: #dbaf58;
+    --PrimaryHover: #b08e49;
+    --SecondaryColor: #8c6c3f;
+    --WhiteHover: rgb(225, 225, 225);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 400;
+}
+
+html{
+    scroll-behavior: smooth;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+a{
+    text-decoration: none;
+    color: #000000;
+}

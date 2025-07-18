@@ -1,0 +1,64 @@
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-y: auto;
+  width: 100%;
+
+  // --- row_1 bleibt wie zuvor ---
+  .row_1 {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+
+    .capital-Analyse {
+      width: 74%;
+      min-height: 300px;
+    }
+
+    aside {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .winrate-Analyse {
+        min-height: 160px;
+        z-index: 1;
+      }
+
+      .drawdown-Analyse {
+        min-height: 120px;
+        height: 50%;
+      }
+    }
+  }
+
+  // --- alle weiteren Reihen: zwei Panels pro Zeile ---
+  .row_2,
+  .row_3,
+  .row_4 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 100%;
+
+    > div {
+      flex: 1 1 calc(50% - 1rem); // Zwei pro Zeile
+      min-width: 300px;
+      min-height: 220px;
+    }
+
+    > .full-width {
+      flex: 1 1 100%; // Einzelne volle Zeile
+      height: 400px;
+    }
+  }
+
+  // --- Panel-Grunddesign ---
+  .panels {
+    background-color: #222;
+    box-shadow: 2px 1px 8px black;
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+}

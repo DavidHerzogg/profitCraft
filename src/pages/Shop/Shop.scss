@@ -1,0 +1,146 @@
+.pageContent {
+  width: 100%;
+
+  .mainContent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+    justify-content: space-evenly;
+  }
+
+  .shopItem {
+    background: linear-gradient(140deg, rgba(219, 175, 88, 0.12), rgba(240, 240, 240, 0.151));
+    background-color: var(--SurfaceColor);
+    border: 1px solid var(--SecondaryColor);
+    border-radius: 14px;
+    width: calc(25% - 1.5rem); // exakt 4 pro Reihe
+    min-width: 240px;
+    max-width: 300px;
+    height: 410px;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.8);
+    }
+
+    .imageWrapper {
+      width: 100%;
+      height: 140px;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.02);
+        }
+      }
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--PrimaryColor);
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+      min-height: 48px;
+    }
+
+    p.description {
+      font-size: 0.88rem;
+      line-height: 1.4;
+      color: var(--WhiteHover);
+      flex-grow: 1;
+      margin-bottom: 1rem;
+    }
+
+    p.price {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--PrimaryColor);
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      background-color: var(--PrimaryColor);
+      color: var(--BackgroundColor);
+      padding: 0.6rem 1.2rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+
+      &:hover {
+        background-color: var(--PrimaryHover);
+        color: var(--WhiteHover);
+        transform: scale(1.01);
+      }
+    }
+  }
+}
+
+/* Optional: responsive fallback */
+@media (max-width: 1200px) {
+  .shopItem {
+    width: calc(33.333% - 1.5rem);
+  }
+}
+
+@media (max-width: 900px) {
+  .shopItem {
+    width: calc(50% - 1.5rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .shopItem {
+    width: 100%;
+  }
+}
+
+.filterBar {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 2rem 0rem 2rem;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  background-color: transparent;
+  color: var(--PrimaryColor);
+  border: 1px solid var(--PrimaryColor);
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: var(--PrimaryColor);
+    color: var(--BackgroundColor);
+  }
+
+  &.active {
+    background-color: var(--PrimaryColor);
+    color: var(--BackgroundColor);
+  }
+}
