@@ -26,23 +26,31 @@ function AuthGate({ children }) {
 function App() {
   return (
     <BrowserRouter>
-      <AuthGate>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-            <Route path="/journal" element={<Journal />} />
-            <Route path="/analyse" element={<Analyse />} />
-            {/* <Route path="/news" element={<News />} /> */}
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/profil" element={<Profil />} />
-            <Route path="/payment" element={<Payment />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-          </Route>
-          <Route path="/welcome" element={<WelcomePage />} />
-        </Routes>
-      </AuthGate>
+      <Routes>
+        {/* Öffentliche Routen */}
+        <Route path="/welcome" element={<WelcomePage />} />
+
+        {/* Geschützte Routen */}
+        <Route
+          path="/"
+          element={
+            <AuthGate>
+              <MainLayout />
+            </AuthGate>
+          }
+        >
+          <Route index element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="journal" element={<Journal />} />
+          <Route path="analyse" element={<Analyse />} />
+          <Route path="shop" element={<Shop />} />
+          <Route path="profil" element={<Profil />} />
+          <Route path="payment" element={<Payment />} />
+          <Route path="product/:id" element={<ProductDetail />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
-  )
+  );
 }
+
 
 export default App
