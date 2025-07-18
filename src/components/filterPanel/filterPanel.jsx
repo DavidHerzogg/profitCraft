@@ -1,4 +1,4 @@
-import './FilterPanel.scss';
+import './filterPanel.scss';
 import { useEffect } from 'react';
 import { IoClose } from "react-icons/io5";
 
