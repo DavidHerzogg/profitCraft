@@ -4,24 +4,23 @@
 }
 
 nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: 4rem;
-  padding: 1rem;
+  padding: 0 1rem;
   background-color: var(--BackgroundColor);
   position: fixed;
   top: 0;
   box-shadow: 4px 0px 10px black;
   z-index: 999;
+  display: flex;
+  align-items: center;
 
   .nav-list {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    list-style-type: none;
+    list-style: none;
     margin: 0;
     padding: 0;
 
@@ -29,37 +28,51 @@ nav {
       display: flex;
       align-items: center;
 
-      h1 {
-        font-weight: 500;
-        font-size: 2.5rem;
-        color: var(--PrimaryColor);
+      .logo {
+        margin: 0;
+        width: 2rem;
+        margin-right: 0.5rem;
+        margin-top: 3rem;
+        font-size: 0;
+
+        @media (max-width: 600px) {
+          margin-top: 2rem;
+        }
       }
 
       img {
-        height: 3.5rem;
-        width: 3.5rem;
-        cursor: pointer;
-        margin-top: 2rem;
+        height: 3rem;
+        width: 2rem;
+        object-fit: cover;
+        display: block;
       }
 
-      .logo {
+      h1 {
+        font-weight: 500;
+        font-size: 2.2rem;
+        color: var(--PrimaryColor);
         margin: 0;
-        font-size: 0;
+
+        @media (max-width: 1024px) {
+          font-size: 1.8rem;
+        }
+
+        @media (max-width: 600px) {
+          font-size: 1.4rem;
+        }
       }
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      position: relative;
+      gap: 1rem;
 
       a {
-        margin-right: 2rem;
         color: var(--PrimaryColor);
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         text-decoration: none;
         padding: 0.5rem 1rem;
-        position: relative;
         transition: color 0.3s ease;
       }
 
@@ -71,9 +84,66 @@ nav {
         color: var(--BackgroundColor);
         background-color: var(--PrimaryColor);
         border-radius: 6px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
       }
     }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      padding: 0.5rem;
+
+      span {
+        width: 25px;
+        height: 3px;
+        background-color: var(--PrimaryColor);
+        transition: 0.3s;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        position: absolute;
+        top: 4.5rem;
+        right: 1rem;
+        background-color: var(--SurfaceColor);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px black;
+        display: none;
+        z-index: 1000;
+
+        a {
+          margin: 0;
+          width: 100%;
+        }
+
+        &.open {
+          display: flex;
+        }
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+  }
+
+  // Hamburger Animation
+  .hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
   }
 }
 

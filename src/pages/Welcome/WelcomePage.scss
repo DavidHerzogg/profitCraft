@@ -11,13 +11,23 @@
   display: flex;
   background-color: var(--BackgroundColor);
   color: white;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   padding: 60px;
   box-sizing: border-box;
   gap: 40px;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 1024px) {
+    flex-direction: column-reverse;
+    padding: 40px 30px;
+    gap: 30px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 30px 20px;
+  }
 }
 
 .left-column {
@@ -26,13 +36,37 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: left;
+
+  @media (max-width: 1024px) {
+    align-items: center;
+    text-align: center;
+  }
 }
 
 .logo {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
   margin-bottom: 30px;
+
+  @media (max-width: 600px) {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .headline {
@@ -40,12 +74,20 @@
   font-weight: 800;
   color: var(--PrimaryColor);
   margin-bottom: 10px;
+
+  @media (max-width: 600px) {
+    font-size: 2rem;
+  }
 }
 
 .subline {
   font-size: 1.4rem;
   color: var(--SecondaryColor);
   margin-bottom: 30px;
+
+  @media (max-width: 600px) {
+    font-size: 1.2rem;
+  }
 }
 
 .intro {
@@ -53,6 +95,10 @@
   line-height: 1.6;
   color: #ccc;
   margin-bottom: 30px;
+
+  @media (max-width: 600px) {
+    font-size: 1rem;
+  }
 }
 
 .features {
@@ -64,6 +110,10 @@
   li {
     margin-bottom: 10px;
     font-size: 1rem;
+
+    @media (max-width: 600px) {
+      font-size: 0.95rem;
+    }
   }
 }
 
@@ -78,6 +128,11 @@
   width: fit-content;
   cursor: pointer;
   transition: background-color 0.3s ease;
+
+  @media (max-width: 600px) {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
 }
 
 .btn-primary:hover {
@@ -95,13 +150,13 @@
     width: 100%;
     max-width: 700px;
     height: auto;
-  }
-}
 
-.head {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-    gap: 1rem;
+    @media (max-width: 1024px) {
+      max-width: 500px;
+    }
+
+    @media (max-width: 600px) {
+      max-width: 100%;
+    }
+  }
 }
