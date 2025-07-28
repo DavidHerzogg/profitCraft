@@ -34,8 +34,9 @@ const TIME_FILTERS = {
 
 const formatDateKey = (date) => date.toISOString().split("T")[0];
 
-export const CapitalChart = ({ data, startingCapital = 5000 }) => {
+export const CapitalChart = ({ data, startCapital }) => {
   const [selectedRange, setSelectedRange] = useState(TIME_FILTERS.ALL);
+  const startingCapital = startCapital;
   const now = useMemo(() => new Date(), []);
 
   const parseProfit = useCallback((profitValue) => {

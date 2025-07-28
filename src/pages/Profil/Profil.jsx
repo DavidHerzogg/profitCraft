@@ -11,6 +11,8 @@ import { useMutation } from "convex/react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 
+import {StartCapitalPanel} from "../../components/startCapitalPanel";
+
 const altImg = "../../assets/NoProfile.jpg";
 
 export default function Profil() {
@@ -18,6 +20,8 @@ export default function Profil() {
   const { user } = useUser();
   const userId = user?.id;
   const importTrades = useMutation(api.trades.importTrades);
+
+  const [showStartCapitalPanel, setShowStartCapitalPanel] = useState(false);
 
   const [showImportPanel, setShowImportPanel] = useState(false);
   const [importFile, setImportFile] = useState(null);
@@ -87,6 +91,10 @@ export default function Profil() {
       </header>
 
       <div className="profile-container">
+        {showStartCapitalPanel && (
+          <StartCapitalPanel onComplete={() => setShowStartCapitalPanel(false)} />
+        )}
+
         <div className="profile-header">
           <img src={user.imageUrl || altImg} alt="Profil" className="profile-avatar" />
           <div>
@@ -108,6 +116,7 @@ export default function Profil() {
           <ul>
             <li><button onClick={handleExportData}>📥 Trade Daten exportieren</button></li>
             <li><button onClick={() => setShowImportPanel(!showImportPanel)}>📤 Trade Daten importieren</button></li>
+            <li><button onClick={() => setShowStartCapitalPanel(true)}>💰 Startkapital ändern</button></li>
             <li><button onClick={() => alert("Feature kommt bald!")}>📊 Persönliche Analyse anfordern</button></li>
             <li><button onClick={() => alert("Feature kommt bald!")}>🎯 Strategieauswertung anzeigen</button></li>
             <li><button onClick={() => alert("Feature kommt bald!")}>🎛️ Fehler-Tags verwalten</button></li>

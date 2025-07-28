@@ -105,4 +105,41 @@ export const getUserPurchasedProducts = query({
   },
 });
 
+export const getStartCapital = query({
+  args: { userId: v.string() },
+  handler: async (ctx, { userId }) => {
+    const settings = await ctx.db
+      .query("userSettings")
+      .withIndex("by_userId", (q) => q.eq("userId", userId))
+      .unique();
+
+    return settings?.startCapital ?? null;
+  },
+});
+
+export const setStartCapital = mutation({
+  args: {
+    userId: v.string(),
+    startCapital: v.number(),
+  },
+  handler: async (ctx, { userId, startCapital }) => {
+    const existing = await ctx.db
+      .query("userSettings")
+      .withIndex("by_userId", (q) => q.eq("userId", userId))
+      .unique();
+
+    if (existing) {
+      return await ctx.db.patch(existing._id, { startCapital });
+    } else {
+      return await ctx.db.insert("userSettings", {
+        userId,
+        strategies: [],
+        errorTags: [],
+        startCapital,
+      });
+    }
+  },
+});
+
+
 

@@ -22,14 +22,22 @@ import ChartPick from "../../assets/chart-1942060_1280.jpg"
 import ShopPick from "../../assets/coffee-shop-6771371_1280.jpg"
 
 import { useAuth } from "@clerk/clerk-react";
+import { StartCapitalPanel } from "../../components/startCapitalPanel"
 
 export default function Dashboard() {
   const { userId } = useAuth();
-  
+  const startCapital = useQuery(api.userSettings.getStartCapital, userId ? { userId } : "skip");
+  const [showStartCapitalPanel, setShowStartCapitalPanel] = useState(false);
+  useEffect(() => {
+    if (startCapital === null || startCapital === undefined) {
+      setShowStartCapitalPanel(true);
+    }
+  }, [startCapital]);
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const openPurchased = queryParams.get("openPurchased") === "true";
-  
+
   // States
   const [showPremium, setShowPremium] = useState(false);
   const [isPanelOpen, setIsPanelOpen] = useState(openPurchased);
@@ -69,6 +77,11 @@ export default function Dashboard() {
 
   if (!userId) return <div>Bitte anmelden...</div>;
   if (!trades || !purchasedProducts) return <div className="loader">Lade Daten...</div>;
+  if (startCapital === undefined) {
+    // Lade-Status: Nichts rendern oder Loader anzeigen
+    return null; // Oder <Loader /> wenn du willst
+  }
+  const canChangeStartCapital = !startCapital || startCapital === 0;
 
   return (
     <div className="pageContent">
@@ -82,17 +95,22 @@ export default function Dashboard() {
 
       {isPanelOpen && (
         <PurchasedProductsPanel
-        products={purchasedProducts}
+          products={purchasedProducts}
           onClose={closeProductsPanel}
           onOpenProduct={handleOpenProduct}
         />
       )}
 
+      {canChangeStartCapital && showStartCapitalPanel && (
+        <StartCapitalPanel onComplete={() => setShowStartCapitalPanel(false)} />
+      )}
+
+
       <div className="mainContent">
         <ImageSlider />
 
         <div className="capital">
-          <CapitalChart data={parsedTrades} />
+          <CapitalChart data={parsedTrades} startCapital={startCapital} />
         </div>
 
         <div className="stats">

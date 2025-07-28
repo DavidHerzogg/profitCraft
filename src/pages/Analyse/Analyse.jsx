@@ -22,6 +22,9 @@ import { useAuth } from "@clerk/clerk-react"
 
 export default function Analyse() {
   const { userId } = useAuth();
+  const startCapital = useQuery(api.userSettings.getStartCapital, {
+    userId,
+  });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -174,7 +177,7 @@ export default function Analyse() {
         {/* Row 1 */}
         <div className="row_1">
           <div className="capital-Analyse panels">
-            <CapitalChart data={parsedTrades} />
+            <CapitalChart data={parsedTrades} startCapital={startCapital}/>
           </div>
           <aside>
             <div className="winrate-Analyse panels">

@@ -25,6 +25,7 @@ export default defineSchema({
     strategies: v.array(v.string()),
     errorTags: v.array(v.string()),
     purchasedProductIds: v.optional(v.array(v.id("products"))),
+    startCapital: v.optional(v.number()),
   }).index("by_userId", ["userId"]),
 
   products: defineTable({
