@@ -89,7 +89,7 @@ export default function Dashboard() {
         <h1>Dashboard</h1>
         <button className="rescources" onClick={openProductsPanel}>
           <LuTableOfContents style={{ fontSize: "1.8rem" }} />
-          Meine Inhalte
+          <span className="rescources-text">Meine Inhalte</span>
         </button>
       </header>
 
@@ -106,7 +106,7 @@ export default function Dashboard() {
       )}
 
 
-      <div className="mainContent">
+      <div className="mainContent mainContent-overwrite">
         <ImageSlider />
 
         <div className="capital">

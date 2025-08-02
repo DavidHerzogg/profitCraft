@@ -41,6 +41,7 @@
       border: none;
       cursor: pointer;
       transition: background-color 0.2s ease;
+
       @media (max-width: 1024px) {
         font-size: 1.3rem;
       }
@@ -55,17 +56,30 @@
     }
   }
 
+  .rescources-text {
+    @media (max-width: 640px) {
+      display: none;
+    }
+  }
+
+  .mainContent-overwrite {
+    @media (max-width: 640px) {
+      padding: 0.5rem !important;
+      gap: 1rem !important;
+    }
+  }
+
   .mainContent {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    padding: 0;
+    margin: 0;
     gap: 1.5rem;
 
     .capital {
       width: 100%;
-      max-width: 1200px;
-      height: 500px;
+      height: fit-content;
       background-color: #23272f;
       border-radius: 10px;
       box-shadow: 2px 0 10px #111;
@@ -75,10 +89,16 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
-      max-width: 1200px;
       gap: 1rem;
 
-      .winrate, .rrr, .pnl, .direction {
+      @media (max-width: 640px) {
+      gap: 0rem !important;
+    }
+
+      .winrate,
+      .rrr,
+      .pnl,
+      .direction {
         flex: 1;
         min-width: 200px;
         height: 200px;
@@ -92,10 +112,19 @@
       display: flex;
       gap: 1rem;
       width: 100%;
-      max-width: 1200px;
+      height: 270px;
       flex-wrap: wrap;
 
-      .premiumBanner, .shopBanner {
+      @media (max-width: 995px) {
+        height: 350px;
+      }
+
+      @media (max-width: 768px) {
+        height: 750px;
+      }
+
+      .premiumBanner,
+      .shopBanner {
         flex: 1;
         min-width: 300px;
         background-color: #0a1a2f;
@@ -103,8 +132,8 @@
         border: 1px solid var(--PrimaryColor);
         overflow: hidden;
         display: flex;
-        height: 300px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        aspect-ratio: 4 / 1;
 
         .bannerLink {
           display: flex;
@@ -157,12 +186,12 @@
     }
 
     @media (max-width: 1024px) {
-      .capital {
-        height: 400px;
-      }
       .stats {
         flex-wrap: wrap;
-        .winrate, .rrr, .pnl, .direction {
+        .winrate,
+        .rrr,
+        .pnl,
+        .direction {
           flex: 1 1 45%;
           margin-bottom: 1rem;
         }
@@ -170,27 +199,24 @@
     }
 
     @media (max-width: 768px) {
-      .capital {
-        height: 500px;
-      }
       .stats {
         flex-direction: column;
-        .winrate, .rrr, .pnl, .direction {
+        .winrate,
+        .rrr,
+        .pnl,
+        .direction {
           width: 100%;
           margin-bottom: 1rem;
         }
       }
       .redirection {
         flex-direction: column;
-        .premiumBanner, .shopBanner {
+        .premiumBanner,
+        .shopBanner {
           width: 100%;
-          height: auto;
-          min-height: 200px;
+          height: auto; /* aspect-ratio will maintain ratio */
+          min-height: 80px; /* fallback minimum */
         }
-      }
-      .premiumPanel {
-        width: 95%;
-        max-width: none;
       }
     }
   }

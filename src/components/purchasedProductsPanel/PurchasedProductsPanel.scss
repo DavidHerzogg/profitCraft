@@ -27,7 +27,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1500;
-  padding: 1rem;
+  padding: 0;
   overflow-y: auto;
 }
 
@@ -40,10 +40,10 @@
 .purchased-panel-container {
   background: var(--SurfaceColor);
   border-radius: 1.25rem;
-  width: 70%;
+  width: 95%;
   height: 85vh;
   overflow-y: auto;
-  padding: 2rem;
+  padding: 1rem;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
   color: var(--TextColor);
   display: flex;
@@ -90,6 +90,10 @@
   margin: 0;
   color: var(--PrimaryColor);
   user-select: text;
+
+  @media (max-width: 1024px) {
+    font-size: 1.4rem;
+  }
 }
 
 .purchased-panel-empty-text {
@@ -117,7 +121,9 @@
   justify-content: space-between;
   align-items: center;
   cursor: default;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 
   &:hover,
   &:focus-within {
@@ -143,10 +149,19 @@
   font-size: 0.95rem;
   color: var(--TextSecondary);
   user-select: text;
+
+  @media (max-width: 1024px) {
+    display: none;
+    font-size: 0.7rem;
+  }
 }
 
 .purchased-product-open-btn {
-  background: linear-gradient(135deg, var(--PrimaryColor), var(--SecondaryColor));
+  background: linear-gradient(
+    135deg,
+    var(--PrimaryColor),
+    var(--SecondaryColor)
+  );
   border: none;
   color: var(--BackgroundColor);
   padding: 0.55rem 1.3rem;
@@ -155,11 +170,17 @@
   font-size: 1rem;
   cursor: pointer;
   user-select: none;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
 
   &:hover,
   &:focus {
-    background: linear-gradient(135deg, var(--PrimaryHover), var(--SecondaryColorDark));
+    background: linear-gradient(
+      135deg,
+      var(--PrimaryHover),
+      var(--SecondaryColorDark)
+    );
     transform: scale(1.08);
     outline: none;
   }

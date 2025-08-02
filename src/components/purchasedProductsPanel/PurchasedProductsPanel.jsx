@@ -3,7 +3,7 @@ import "./PurchasedProductsPanel.scss";
 import { useNavigate } from "react-router-dom";
 
 export default function PurchasedProductsPanel({
-  products = [], // schon gekaufte Produktobjekte
+  products = [],
   onClose,
 }) {
   const navigate = useNavigate();
