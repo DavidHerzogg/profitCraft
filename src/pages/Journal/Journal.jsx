@@ -209,7 +209,7 @@ export default function Journal() {
   return (
     <div className='pageContent'>
       <header>
-        <h1>Trading Journal</h1>
+        <h1>Journal</h1>
         <div className="btns">
           <button
             className={`filter ${isFilterActive ? 'active' : ''}`}
@@ -261,25 +261,28 @@ export default function Journal() {
         </thead>
         <tbody>
           {trades.length === 0 ? <div className="loader">Keine Trades vorhanden.</div> : null}
-          {applyFilters(trades, filterState).map(trade => (
-            <tr key={trade._id}>
-              <td ><span className='tdName' onClick={() => setSelectedTrade(trade)} style={{ cursor: "pointer" }}>{trade.name} <IoMdInformationCircle className='IoMdInformationCircle' /></span></td>
-              <td>{trade.profit >= 0 ? "+" + trade.profit : trade.profit}€</td>
-              <td>{trade.ratio}</td>
-              <td>
-                {trade.errorTags.map((tag, index) => (
-                  <span className='banner tag' key={index}>#{tag}</span>
-                ))}
-              </td>
-              <td><span className='banner'>{trade.strategy}</span></td>
-              <td><span className={`banner ${trade.direction !== 'Long' ? 'short' : 'long'}`}>{trade.direction}</span></td>
-              <td>{new Date(trade.date).toLocaleString()}</td>
-              <td className='edit'>
-                <BiSolidEdit className='BiSolidEdit' onClick={() => openEditPanel(trade)} />
-                <MdDelete className='MdDelete' onClick={() => openConfirm(trade)} />
-              </td>
-            </tr>
-          ))}
+          {applyFilters(trades, filterState)
+            .slice()
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .map(trade => (
+              <tr key={trade._id}>
+                <td ><span className='tdName' onClick={() => setSelectedTrade(trade)} style={{ cursor: "pointer" }}>{trade.name} <IoMdInformationCircle className='IoMdInformationCircle' /></span></td>
+                <td>{trade.profit >= 0 ? "+" + trade.profit : trade.profit}€</td>
+                <td>{trade.ratio}</td>
+                <td>
+                  {trade.errorTags.map((tag, index) => (
+                    <span className='banner tag' key={index}>#{tag}</span>
+                  ))}
+                </td>
+                <td><span className='banner'>{trade.strategy}</span></td>
+                <td><span className={`banner ${trade.direction !== 'Long' ? 'short' : 'long'}`}>{trade.direction}</span></td>
+                <td>{new Date(trade.date).toLocaleString()}</td>
+                <td className='edit'>
+                  <BiSolidEdit className='BiSolidEdit' onClick={() => openEditPanel(trade)} />
+                  <MdDelete className='MdDelete' onClick={() => openConfirm(trade)} />
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
 

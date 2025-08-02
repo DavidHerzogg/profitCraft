@@ -10,6 +10,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem; // verhindert Rand auf kleinen Screens
+  box-sizing: border-box;
 }
 
 .panel {
@@ -19,6 +21,8 @@
   background-color: var(--BackgroundColor);
   border-radius: 15px;
   box-shadow: 1px 0 20px #111;
+  display: flex;
+  flex-direction: column;
 
   .header {
     display: flex;
@@ -27,9 +31,10 @@
     width: 100%;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    padding: 0.5rem 3rem;
+    padding: 0.5rem 2rem;
     margin-bottom: 1rem;
     color: var(--PrimaryColor);
+    font-size: 0.8rem;
   }
 
   .form {
@@ -137,18 +142,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 4rem 2rem;
-    margin-bottom: 1rem;
+    padding: 0 4rem 1rem; /* padding unten reduziert */
+    margin-bottom: 0.5rem; /* margin-bottom reduziert */
     margin-top: 0.5rem;
 
     .Save {
-      padding: 0.6rem;
+      padding: 0.5rem 1rem; /* Padding etwas kompakter */
       border: none;
       background-color: var(--PrimaryColor);
       color: var(--SurfaceColor);
       border-radius: 10px;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.95rem; /* Schriftgröße reduziert */
       transition: all 0.2s ease;
     }
 
@@ -157,13 +162,13 @@
     }
 
     .Ignore {
-      padding: 0.6rem;
+      padding: 0.5rem 1rem; /* Padding etwas kompakter */
       border: none;
       background-color: transparent;
       color: var(--PrimaryColor);
       border-radius: 10px;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.95rem; /* Schriftgröße reduziert */
       transition: all 0.2s ease;
     }
 
@@ -322,6 +327,7 @@
   border-radius: 12px;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
   width: 500px;
+  max-width: 95vw;
 
   .popup-inner {
     display: flex;
@@ -331,6 +337,7 @@
     h3 {
       text-align: center;
       color: var(--PrimaryColor);
+      font-size: 1.5rem;
     }
 
     .strategy-list {
@@ -419,5 +426,156 @@
   }
   100% {
     transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 950px) {
+  .panel {
+    width: 70%;
+    height: 90%;
+    padding: 1rem 0;
+  }
+
+  .panel .header {
+    padding: 0.5rem 2rem;
+    font-size: 1.25rem;
+  }
+
+  .panel .form {
+    width: 95%;
+    height: 75%;
+    gap: 4px;
+  }
+
+  .panel .form input,
+  .panel .form select {
+    font-size: 1.2rem;
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
+  }
+
+  .panel .form .unite {
+    flex-wrap: wrap;
+  }
+
+  .panel .form .unite .inputComplete,
+  .panel .form .unite .twoPart {
+    width: 100%;
+  }
+
+  .panel .form .unite .twoPart .gvRow input,
+  .panel .form .unite .twoPart .gvRow button {
+    font-size: 1.1rem;
+    height: 34px;
+  }
+
+  .bottomHandlings {
+    padding: 0 2rem 1rem;
+  }
+
+  .bottomHandlings .Save,
+  .bottomHandlings .Ignore {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .panel {
+    width: 90%;
+    height: 95%;
+    padding: 0.5rem 0;
+  }
+
+  .panel .header {
+    padding: 0.4rem 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  .panel .form {
+    width: 100%;
+    height: 75%;
+    gap: 3px;
+  }
+
+  .panel .form input,
+  .panel .form select {
+    font-size: 1rem;
+    margin-left: 0.6rem;
+    margin-right: 0.6rem;
+  }
+
+  .panel .form .unite {
+    flex-direction: column;
+  }
+
+  .panel .form .unite .inputComplete,
+  .panel .form .unite .twoPart {
+    width: 100%;
+  }
+
+  .panel .form .unite .twoPart .gvRow input,
+  .panel .form .unite .twoPart .gvRow button {
+    font-size: 1rem;
+    height: 30px;
+  }
+
+  .bottomHandlings {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0 1rem 0.5rem;
+    margin-bottom: 0;
+    align-items: stretch;
+  }
+
+  .bottomHandlings .Save,
+  .bottomHandlings .Ignore {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.6rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .panel {
+    width: 95%;
+    height: 95%;
+    border-radius: 10px;
+    padding: 0.3rem 0;
+  }
+
+  .panel .header {
+    padding: 0.3rem 1rem;
+    font-size: 1rem;
+  }
+
+  .panel .form {
+    gap: 2px;
+    padding-bottom: 0.5rem;
+  }
+
+  .panel .form input,
+  .panel .form select {
+    font-size: 0.9rem;
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+  }
+
+  .panel .form .unite .twoPart .gvRow input,
+  .panel .form .unite .twoPart .gvRow button {
+    font-size: 0.9rem;
+    height: 28px;
+  }
+
+  .bottomHandlings {
+    padding: 0 0.5rem 0.5rem;
+  }
+
+  .bottomHandlings .Save,
+  .bottomHandlings .Ignore {
+    font-size: 0.9rem;
+    padding: 0.4rem;
   }
 }

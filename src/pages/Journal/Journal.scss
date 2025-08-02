@@ -10,9 +10,24 @@ header {
   background-color: var(--BackgroundColor);
   margin-bottom: 1rem;
 
+  h1 {
+    font-size: 1.5rem;
+    margin: 0;
+
+    @media (max-width: 950px) {
+      font-size: 1.2rem;
+    }
+    @media (max-width: 600px) {
+      font-size: 0.9rem;
+    }
+    @media (max-width: 400px) {
+      font-size: 0.7rem;
+    }
+  }
+
   .btns {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     gap: 1rem;
 
     button {
@@ -25,6 +40,7 @@ header {
       justify-content: center;
       align-items: center;
       transition: background-color 0.2s ease;
+      font-size: 1rem;
 
       .IoMdAdd {
         height: 35px !important;
@@ -32,6 +48,7 @@ header {
         transition: color 0.2s ease;
       }
     }
+
     button:hover {
       background-color: rgb(237, 236, 236);
 
@@ -65,9 +82,86 @@ header {
     .active {
       background-color: var(--PrimaryHover);
     }
+
     .filter:hover {
       background-color: var(--PrimaryHover);
       color: var(--WhiteHover);
+    }
+
+    /* Responsive Anpassungen für Buttons */
+    @media (max-width: 950px) {
+      gap: 0.6rem;
+
+      button {
+        height: 40px; /* Einheitliche Höhe/W Breite */
+        width: 40px;
+        font-size: 0.85rem;
+
+        .IoMdAdd {
+          height: 30px !important; /* Icons proportional */
+          width: 30px !important;
+        }
+      }
+
+      .filter {
+        font-size: 1.1rem;
+        padding: 0 0.6rem;
+        height: 40px;
+
+        .FaFilter {
+          font-size: 1.4rem;
+        }
+      }
+    }
+
+    @media (max-width: 600px) {
+      gap: 0.4rem;
+
+      button {
+        height: 35px;
+        width: 35px;
+        font-size: 0.75rem;
+
+        .IoMdAdd {
+          height: 28px !important;
+          width: 28px !important;
+        }
+      }
+
+      .filter {
+        font-size: 1rem;
+        padding: 0 0.5rem;
+        height: 34px;
+
+        .FaFilter {
+          font-size: 1.2rem;
+        }
+      }
+    }
+
+    @media (max-width: 400px) {
+      gap: 0.3rem;
+
+      button {
+        height: 30px;
+        width: 30px;
+        font-size: 0.65rem;
+
+        .IoMdAdd {
+          height: 22px !important;
+          width: 22px !important;
+        }
+      }
+
+      .filter {
+        font-size: 0.9rem;
+        padding: 0 0.4rem;
+        height: 28px;
+
+        .FaFilter {
+          font-size: 1rem;
+        }
+      }
     }
   }
 }
@@ -266,6 +360,210 @@ header {
 
     button:hover {
       color: white;
+    }
+  }
+}
+
+@media (max-width: 950px) {
+  .journal-table {
+    width: 96%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    background: #23272f;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+
+    th,
+    td {
+      padding: 0.75rem 1.25rem;
+      text-align: center;
+    }
+
+    .tdName {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      .IoMdInformationCircle {
+        height: 1.6rem;
+        width: 1.3rem;
+        color: #458acf;
+      }
+    }
+
+    .banner {
+      padding: 0.4rem 1rem;
+      background-color: #222;
+      border-radius: 8px;
+    }
+
+    .tag {
+      background-color: var(--PrimaryHover);
+      margin-left: 5px;
+    }
+
+    .long {
+      background-color: rgb(80, 180, 80);
+    }
+
+    .short {
+      background-color: #ff4848;
+    }
+
+    th {
+      background: #2d323c;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    tr {
+      border-bottom: 1px solid #353b48;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #262b34;
+    }
+
+    tbody tr:hover {
+      background: #31363f;
+      transition: background 0.2s;
+    }
+
+    .edit {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+
+      .MdDelete {
+        height: 25px;
+        width: 25px;
+        transition: color 0.2s ease;
+        color: #ff4848 !important;
+      }
+
+      .BiSolidEdit {
+        height: 25px;
+        width: 25px;
+        transition: color 0.2s ease;
+        color: var(--PrimaryColor) !important;
+      }
+
+      .MdDelete:hover {
+        color: #ef3636 !important;
+      }
+
+      .BiSolidEdit:hover {
+        color: var(--PrimaryHover) !important;
+      }
+    }
+
+    /* Media Query: Umwandlung in Karten-Liste ab 950px */
+    display: block;
+    width: 100%;
+    margin: 1rem auto;
+    box-shadow: none;
+    background: transparent;
+    border-radius: 0;
+
+    thead {
+      display: none; /* Kopfzeile ausblenden */
+    }
+
+    tbody,
+    tr {
+      display: block;
+      margin-bottom: 1.5rem;
+      background: #23272f;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    tr {
+      border: none;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #353b48;
+      font-size: 0.9rem;
+      white-space: normal;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+    }
+
+    /* Letztes td ohne Border */
+    td:last-child {
+      border-bottom: none;
+    }
+
+    /* Label vor jedem Wert */
+    td:nth-of-type(1):before {
+      content: "Wert";
+      font-weight: 600;
+      color: var(--PrimaryColor);
+    }
+    td:nth-of-type(2):before {
+      content: "G/V";
+      font-weight: 600;
+      color: var(--PrimaryColor);
+    }
+    td:nth-of-type(3):before {
+      content: "RRR";
+      font-weight: 600;
+      color: var(--PrimaryColor);
+    }
+    td:nth-of-type(4):before {
+      content: "Fehler Tags";
+      font-weight: 600;
+      color: var(--PrimaryColor);
+    }
+    td:nth-of-type(5):before {
+      content: "Strategie";
+      font-weight: 600;
+      color: var(--PrimaryColor);
+    }
+    td:nth-of-type(6):before {
+      content: "Long/Short";
+      font-weight: 600;
+      color: var(--PrimaryColor);
+    }
+    td:nth-of-type(7):before {
+      content: "Datum";
+      font-weight: 600;
+      color: var(--PrimaryColor);
+    }
+    td:nth-of-type(8):before {
+      content: "Bearbeiten";
+      font-weight: 600;
+      color: var(--PrimaryColor);
+    }
+
+    .IoMdInformationCircle {
+      height: 1.2rem;
+      width: 1rem;
+    }
+
+    .banner {
+      font-size: 0.85rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .tag {
+      margin-left: 3px;
+      font-size: 0.75rem;
+    }
+
+    .edit .MdDelete,
+    .edit .BiSolidEdit {
+      height: 22px;
+      width: 22px;
     }
   }
 }
