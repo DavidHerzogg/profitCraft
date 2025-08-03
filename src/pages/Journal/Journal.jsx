@@ -61,7 +61,7 @@ export default function Journal() {
   }, [trades]);
 
   if (!userId) return <div>Bitte anmelden...</div>;
-  if (trades === undefined) return <div className='loader'>Loading...</div>;
+  if (trades === undefined) return <div className="lds-ripple loader-text"><div></div><div></div></div>;
 
   const handleClosePanel = () => {
     setIsShown(false);

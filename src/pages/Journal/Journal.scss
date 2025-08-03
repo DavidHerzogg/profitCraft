@@ -203,6 +203,11 @@ header {
   .tag {
     background-color: var(--PrimaryHover);
     margin-left: 5px;
+    font-size: 0.8rem;
+    width: fit-content;
+    text-wrap-mode: nowrap;
+    display: inline-block;
+    margin-bottom: 0.1rem;
   }
 
   .long {

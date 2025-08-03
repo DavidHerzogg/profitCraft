@@ -93,11 +93,30 @@ export function StartCapitalPanel({ onComplete }) {
           </p>
         )}
         <button
+          onClick={onComplete}
+          style={{
+            width: "49%",
+            marginRight: "0.3rem",
+            backgroundColor: "#2f3b3e", // dunkler, neutraler Hintergrund
+            color: "#dddddd",
+            padding: "10px",
+            borderRadius: "6px",
+            fontWeight: "500",
+            fontSize: "16px",
+            cursor: "pointer",
+            border: "1px solid #555", // dezenter Rahmen
+            transition: "background-color 0.2s ease, color 0.2s ease",
+          }}
+          type="button"
+        >
+          Abbrechen
+        </button>
+        <button
           onClick={handleSave}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           style={{
-            width: "100%",
+            width: "49%",
             backgroundColor: hover ? "#c9a449" : "#dbaf58",
             color: "black",
             padding: "10px",

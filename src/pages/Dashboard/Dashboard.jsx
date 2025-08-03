@@ -76,7 +76,7 @@ export default function Dashboard() {
   const handleOpenProduct = (product) => setActiveProduct(product);
 
   if (!userId) return <div>Bitte anmelden...</div>;
-  if (!trades || !purchasedProducts) return <div className="loader">Lade Daten...</div>;
+  if (!trades || !purchasedProducts) return <div className="lds-ripple loader-text"><div></div><div></div></div>;
   if (startCapital === undefined) {
     // Lade-Status: Nichts rendern oder Loader anzeigen
     return null; // Oder <Loader /> wenn du willst

@@ -17,7 +17,7 @@ import { Navigate } from "react-router-dom";
 function AuthGate({ children }) {
   const { isLoaded, isSignedIn } = useUser();
 
-  if (!isLoaded) return <div>Lade Auth…</div>;
+  if (!isLoaded) return <div className="lds-ripple"><div></div><div></div></div>;
   if (!isSignedIn) return <Navigate to="/welcome" />;
 
   return children;

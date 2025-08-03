@@ -139,10 +139,8 @@ export default function Analyse() {
     );
   }, [filterState]);
 
-  if (!trades) return <div className='loader'>Lade Daten...</div>;
-  if (!mounted) return null;
-
-  if (!mounted) return <div className="panel-loading-placeholder" />;
+  if (!trades) return <div className="lds-ripple loader-text"><div></div><div></div></div>;
+  if (!mounted) return <div className="lds-ripple loader-text"><div></div><div></div></div>;
 
   return (
     <div className='pageContent'>
