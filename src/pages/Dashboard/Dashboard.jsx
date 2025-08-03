@@ -85,7 +85,7 @@ export default function Dashboard() {
 
   return (
     <div className="pageContent">
-      <header>
+      <header id="header">
         <h1>Dashboard</h1>
         <button className="rescources" onClick={openProductsPanel}>
           <LuTableOfContents style={{ fontSize: "1.8rem" }} />

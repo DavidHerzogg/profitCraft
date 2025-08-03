@@ -173,7 +173,7 @@ export default function Analyse() {
         />
       )}
 
-      <div className="mainContent">
+      <div className="mainContent charts">
         {/* Row 1 */}
         <div className="row_1">
           <div className="capital-Analyse panels">

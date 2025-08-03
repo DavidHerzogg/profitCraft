@@ -101,6 +101,10 @@ export const CapitalChart = ({ data, startCapital = 0 }) => {
   const options = useMemo(() => ({
     responsive: true,
     maintainAspectRatio: false,
+    interaction: {
+      mode: "nearest",
+      intersect: false,
+    },
     scales: {
       x: { type: 'time', time: { unit: width > 1024 ? 'day' : 'hour' }, ticks: { font: { size: width > 1024 ? 12 : 10 } } },
       y: { ticks: { font: { size: width > 1024 ? 12 : 10 } } }

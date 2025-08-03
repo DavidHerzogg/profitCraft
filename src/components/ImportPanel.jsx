@@ -1,15 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaFileAlt, FaFolder } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "convex/react"; // Wichtig: Mutation Hook importieren
+import { useUser } from "@clerk/clerk-react";
 
 export default function ImportPanel({
   importFile,
   setImportFile,
   importMode,
   setImportMode,
-  handleImportData,
   importing,
+  setImporting,
   onClose,
 }) {
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const navigate = useNavigate();
+
+  const { user } = useUser();
+  const userId = user?.id;
+
+  // Mutation aus Convex, kein userId-Argument!
+  const importTrades = useMutation("trades:importTrades");
+
   useEffect(() => {
     const originalOverflow = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
@@ -17,6 +29,45 @@ export default function ImportPanel({
       document.documentElement.style.overflow = originalOverflow;
     };
   }, []);
+
+  const handleImportData = async () => {
+    if (!importFile) return;
+
+    setImporting(true);
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      try {
+        const importedTrades = JSON.parse(event.target.result);
+
+        // Mutation aufrufen OHNE userId, nur trades und mode
+        await importTrades({
+          userId,
+          trades: importedTrades,
+          mode: importMode,
+        });
+
+        // Erfolgspanel zeigen
+        setShowSuccessModal(true);
+        setImportFile(null);
+      } catch (err) {
+        alert("Fehler beim Import: " + (err.message || "Ungültige JSON-Datei."));
+        console.error(err);
+      } finally {
+        setImporting(false);
+      }
+    };
+    reader.onerror = () => {
+      alert("Fehler beim Lesen der Datei.");
+      setImporting(false);
+    };
+    reader.readAsText(importFile);
+  };
+
+  const closeAll = () => {
+    setShowSuccessModal(false);
+    onClose();
+  };
 
   return (
     <div style={overlayStyle}>
@@ -86,6 +137,23 @@ export default function ImportPanel({
           {importing ? "Importiere..." : "Import starten"}
         </button>
       </div>
+
+      {showSuccessModal && (
+        <div style={modalOverlay}>
+          <div style={modalContent}>
+            <h3>✅ Import erfolgreich!</h3>
+            <p>Deine Trades wurden erfolgreich hinzugefügt.</p>
+            <div style={{ display: "flex", gap: 12, marginTop: 20 }}>
+              <button onClick={closeAll} style={modalBtn}>
+                Schließen
+              </button>
+              <button onClick={() => navigate("/journal")} style={modalBtn}>
+                Zum Journal
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -108,7 +176,7 @@ const panelStyle = {
   backgroundColor: "#222831",
   padding: 28,
   borderRadius: 12,
-  width: 380,
+  width: 340,
   boxShadow: "0 0 25px rgba(219, 175, 88, 0.9)",
   color: "#eeeeee",
   fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
@@ -163,6 +231,38 @@ const buttonStyle = {
   cursor: "pointer",
   width: "100%",
   boxShadow: "0 4px 10px rgba(219, 175, 88, 0.7)",
-  transition: "background-color 0.3s ease",
+};
+
+const modalOverlay = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100vw",
+  height: "100vh",
+  backgroundColor: "rgba(0,0,0,0.6)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: 10000,
+};
+
+const modalContent = {
+  backgroundColor: "#fff",
+  color: "#111",
+  padding: 28,
+  borderRadius: 12,
+  boxShadow: "0 0 25px rgba(0,0,0,0.3)",
+  minWidth: 280,
+  textAlign: "center",
+};
+
+const modalBtn = {
+  backgroundColor: "#dbaf58",
+  color: "#0b1825",
+  fontWeight: "bold",
+  padding: "10px 16px",
+  borderRadius: 6,
+  border: "none",
+  cursor: "pointer",
 };
 

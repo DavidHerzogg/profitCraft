@@ -153,6 +153,7 @@
   input[type="number"],
   input[type="date"] {
     flex: 1;
+    max-width: 120px;
     padding: 0.4rem 0.6rem;
     border: 1px solid #444;
     border-radius: 0.6rem;

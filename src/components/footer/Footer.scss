@@ -6,6 +6,8 @@
   width: 100%;
   position: relative;
   bottom: 0;
+  background: linear-gradient(var(--SurfaceColor), var(--BackgroundColor));
+  margin-top: 10rem;
 
   .footer-content {
     display: flex;

@@ -11,7 +11,7 @@ import { useMutation } from "convex/react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 
-import {StartCapitalPanel} from "../../components/startCapitalPanel";
+import { StartCapitalPanel } from "../../components/startCapitalPanel";
 
 const altImg = "../../assets/NoProfile.jpg";
 
@@ -63,17 +63,23 @@ export default function Profil() {
 
     try {
       const text = await importFile.text();
-      const importedTrades = JSON.parse(text);
+      let importedTrades = JSON.parse(text);
+
+      // Namen anpassen:
+      importedTrades = importedTrades.map(t => ({
+        ...t,
+        name: t.name ? t.name + " - import" : "importierter Trade",
+      }));
 
       await importTrades({
         trades: importedTrades,
         mode: importMode,
       });
 
-      // TODO: Zeige Erfolgsmeldung im UI
+      // TODO: UI Erfolgsmeldung
       setImportFile(null);
     } catch (error) {
-      // TODO: Zeige Fehlermeldung im UI
+      // TODO: UI Fehlermeldung
       console.error("Import fehlgeschlagen:", error);
     } finally {
       setImporting(false);
@@ -136,11 +142,19 @@ export default function Profil() {
           setImportFile={setImportFile}
           importMode={importMode}
           setImportMode={setImportMode}
+          onImportSuccess={async (data, mode) => {
+            const mapped = data.map(t => ({
+              ...t,
+              name: t.name ? t.name + " - import" : "importierter Trade",
+            }));
+            await importTrades({ trades: mapped, mode });
+          }}
           handleImportData={handleImportData}
           importing={importing}
+          setImporting={setImporting}
           onClose={() => setShowImportPanel(false)}
         />
-      )}
+        )}
     </div>
   );
 }

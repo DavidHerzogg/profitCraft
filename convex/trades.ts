@@ -77,16 +77,17 @@ export const updateTrade = mutation({
 });
 
 export const importTrades = mutation({
-  args: { trades: v.array(v.any()), mode: v.string() },
+  args: {
+    userId: v.string(),         // User-ID muss vom Client mitkommen
+    trades: v.array(v.any()),   // Liste der Trades
+    mode: v.string(),           // Modus "append" oder "replace"
+  },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("Nicht authentifiziert");
-    const userId = identity.subject;
-
+    // Wenn "replace" Modus, alle alten Trades löschen
     if (args.mode === "replace") {
       const existing = await ctx.db
         .query("trades")
-        .withIndex("by_user", (q) => q.eq("userId", userId))
+        .withIndex("by_user", (q) => q.eq("userId", args.userId))
         .collect();
 
       for (const trade of existing) {
@@ -94,36 +95,33 @@ export const importTrades = mutation({
       }
     }
 
+    // Neue Trades speichern
     for (const trade of args.trades) {
-      // Validierung / Defaults
-      const profit = typeof trade.profit === "number" ? trade.profit : 0;
-      const ratio = typeof trade.ratio === "number" ? trade.ratio : 0;
-      const date =
-        typeof trade.date === "string"
-          ? trade.date
-          : trade.date instanceof Date
-          ? trade.date.toISOString()
-          : new Date().toISOString();
-
       await ctx.db.insert("trades", {
-        userId,
-        name: typeof trade.name === "string" ? trade.name : "",
-        date,
-        entry: typeof trade.entry === "number" ? trade.entry : null,
-        exit: typeof trade.exit === "number" ? trade.exit : null,
-        size: typeof trade.size === "number" ? trade.size : null,
+        userId: args.userId,
+        name: typeof trade.name === "string" ? trade.name + " - import" : "unnamed - import",
+        date:
+          typeof trade.date === "string"
+            ? trade.date
+            : trade.date instanceof Date
+            ? trade.date.toISOString()
+            : new Date().toISOString(),
+        entry: typeof trade.entry === "number" ? trade.entry : undefined,
+        exit: typeof trade.exit === "number" ? trade.exit : undefined,
+        size: typeof trade.size === "number" ? trade.size : undefined,
         screenshot: typeof trade.screenshot === "string" ? trade.screenshot : null,
         comment: typeof trade.comment === "string" ? trade.comment : "",
         strategy: typeof trade.strategy === "string" ? trade.strategy : "",
         direction: typeof trade.direction === "string" ? trade.direction : "long",
-        ratio,
+        ratio: typeof trade.ratio === "number" ? trade.ratio : 0,
         isLoss: typeof trade.isLoss === "boolean" ? trade.isLoss : false,
         errorTags: Array.isArray(trade.errorTags) ? trade.errorTags : [],
-        pnlPercent:
-          typeof trade.pnlPercent === "number" ? trade.pnlPercent : null,
-        profit,
+        pnlPercent: typeof trade.pnlPercent === "number" ? trade.pnlPercent : undefined,
+        profit: typeof trade.profit === "number" ? trade.profit : 0,
       });
     }
   },
 });
+
+
 

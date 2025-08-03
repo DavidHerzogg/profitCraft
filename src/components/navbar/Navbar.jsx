@@ -15,7 +15,7 @@ function Navbar() {
       <nav>
         <ul className="nav-list">
           <li className="logo-container">
-            <NavLink to="/" className="logo" onClick={closeMenu}>
+            <NavLink to="/#header" className="logo" onClick={closeMenu}>
               <img src={ProfitCraftMini} alt="ProfitCraft-Logo" />
             </NavLink>
             <h1>Profit Craft</h1>

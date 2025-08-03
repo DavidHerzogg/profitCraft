@@ -20,11 +20,14 @@
   }
 
   .mainContent {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
 
     .profil-container {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       height: 250px;
       width: 100%;
       background-color: #23272f;
@@ -47,7 +50,6 @@
       box-shadow: 2px 0 10px #111;
       padding: 2rem;
     }
-
   }
 }
 
@@ -120,5 +122,62 @@
         }
       }
     }
+  }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .pageContent {
+    .mainContent {
+      .profil-container {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem 2rem;
+
+        img {
+          height: 120px;
+          width: 120px;
+          margin-bottom: 1rem;
+        }
+      }
+
+      .settings {
+        padding: 1.5rem;
+      }
+    }
+  }
+
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-stats {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  }
+}
+
+@media (max-width: 500px) {
+  .pageContent {
+    .mainContent {
+      padding: 1rem;
+
+      .profil-container {
+        padding: 1rem;
+      }
+
+      .settings {
+        padding: 1rem;
+      }
+    }
+  }
+
+  .stat-card {
+    padding: 0.8rem;
+  }
+
+  .profile-avatar {
+    width: 60px;
+    height: 60px;
   }
 }
