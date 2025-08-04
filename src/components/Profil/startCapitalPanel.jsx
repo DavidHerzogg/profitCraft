@@ -1,6 +1,6 @@
 import { useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api";
-import { useState } from "react";
+import { api } from "../../../convex/_generated/api";
+import { useState, useEffect } from "react";
 import { useAuth } from "@clerk/clerk-react";
 
 export function StartCapitalPanel({ onComplete }) {
@@ -9,6 +9,14 @@ export function StartCapitalPanel({ onComplete }) {
   const [capitalInput, setCapitalInput] = useState("");
   const [error, setError] = useState("");
   const [hover, setHover] = useState(false);
+
+  useEffect(() => {
+    const originalOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.overflow = originalOverflow;
+    };
+  }, []);
 
   const handleSave = async () => {
     if (!userId) {

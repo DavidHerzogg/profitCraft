@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import "./Profil.scss";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { PiSignOutBold } from "react-icons/pi";
 import { useUser } from "@clerk/clerk-react";
 import { useClerk } from "@clerk/clerk-react";
-import ImportPanel from "../../components/ImportPanel"
 import { useMutation } from "convex/react";
+import ImportPanel from "../../components/Profil/ImportPanel"
+import StrategyInfoPanel from "../../components/Profil/StrategyInfoPanel";
+import ErrorTagsMananger from "../../components/Profil/ErrorTagsMananger";
+import StrategyManagementPanel from "../../components/Profil/StrategyManagementPanel";
+import DeleteAllTradesPanel from "../../components/Profil/DeleteAllTradesPanel";
+import { StartCapitalPanel } from "../../components/Profil/startCapitalPanel";
+import { ExportPanel } from "../../components/Profil/ExportPanel"
 
 import JSZip from "jszip";
-import { saveAs } from "file-saver";
-
-import { StartCapitalPanel } from "../../components/startCapitalPanel";
 
 const altImg = "../../assets/NoProfile.jpg";
 
@@ -28,10 +31,35 @@ export default function Profil() {
   const [importMode, setImportMode] = useState("append"); // "append" oder "replace"
   const [importing, setImporting] = useState(false);
 
+  const [showStrategyPanel, setShowStrategyPanel] = useState(false);
+  const [showFehlerTagsPanel, setShowFehlerTagsPanel] = useState(false);
+  const [showStrategiesPanel, setShowStrategiesPanel] = useState(false);
+  const [showDeletePanel, setShowDeletePanel] = useState(false);
+  const [showExportPanel, setShowExportPanel] = useState(false);
+
   const trades = useQuery(api.trades.getUserTrades, userId ? { userId } : "skip");
   const purchased = useQuery(api.userSettings.getUserPurchasedProducts, userId ? { userId } : "skip");
 
-  if (!user || !trades || !purchased) return <div>Lade...</div>;
+  const strategyData = useMemo(() => {
+    const safeTrades = Array.isArray(trades) ? trades : [];
+
+    const grouped = {};
+    safeTrades.forEach((trade) => {
+      const key = trade.strategy || "Unbekannt";
+      if (!grouped[key]) grouped[key] = { count: 0, wins: 0 };
+      grouped[key].count += 1;
+      if (trade.profit > 0) grouped[key].wins += 1;
+    });
+
+    return Object.entries(grouped).map(([strategy, stats]) => ({
+      strategy,
+      count: stats.count,
+      wins: stats.wins,
+      winrate: Math.round((stats.wins / stats.count) * 100),
+    }));
+  }, [trades]);
+
+  if (!user || !trades || !purchased) return <div className="lds-ripple loader-text"><div></div><div></div></div>;
 
   const totalTrades = trades.length;
   const wins = trades.filter(t => !t.isLoss).length;
@@ -45,17 +73,6 @@ export default function Profil() {
     strategyCount[t.strategy] = (strategyCount[t.strategy] || 0) + 1;
   });
   const topStrategy = Object.entries(strategyCount).sort((a, b) => b[1] - a[1])[0]?.[0] || "Keine";
-
-  const handleExportData = async () => {
-    if (!trades) return;
-
-    const zip = new JSZip();
-    const tradesJson = JSON.stringify(trades, null, 2); // schön formatiert
-    zip.file("trades.json", tradesJson);
-
-    const blob = await zip.generateAsync({ type: "blob" });
-    saveAs(blob, "ProfitCraft-TradeExport.zip");
-  };
 
   const handleImportData = async () => {
     if (!importFile) return;
@@ -120,22 +137,44 @@ export default function Profil() {
         <div className="profile-settings">
           <h3>Nützliche Einstellungen</h3>
           <ul>
-            <li><button onClick={handleExportData}>📥 Trade Daten exportieren</button></li>
+            <li><button onClick={() => setShowExportPanel(true)}>📥 Trade Daten exportieren</button></li>
             <li><button onClick={() => setShowImportPanel(!showImportPanel)}>📤 Trade Daten importieren</button></li>
             <li><button onClick={() => setShowStartCapitalPanel(true)}>💰 Startkapital ändern</button></li>
             <li><button onClick={() => alert("Feature kommt bald!")}>📊 Persönliche Analyse anfordern</button></li>
-            <li><button onClick={() => alert("Feature kommt bald!")}>🎯 Strategieauswertung anzeigen</button></li>
-            <li><button onClick={() => alert("Feature kommt bald!")}>🎛️ Fehler-Tags verwalten</button></li>
-            <li><button onClick={() => alert("Feature kommt bald!")}>🧠 Strategien verwalten</button></li>
-            <li><button onClick={() => alert("Feature kommt bald!")}>📅 Zeitfenster-Voreinstellungen setzen</button></li>
-            <li><button onClick={() => alert("Feature kommt bald!")}>🔔 Tages-Benachrichtigungen aktivieren</button></li>
-            <li><button onClick={() => alert("Feature kommt bald!")}>📦 Gekaufte Produkte verwalten</button></li>
+            <li><button onClick={() => setShowStrategyPanel(true)}>🎯 Strategieauswertung anzeigen</button></li>
+            <li><button onClick={() => setShowFehlerTagsPanel(true)}>🎛️ Fehler-Tags verwalten</button></li>
+            <li><button onClick={() => setShowStrategiesPanel(true)}>🧠 Strategien verwalten</button></li>
             <li><button onClick={() => alert("Feature kommt bald!")}>📝 Eigene Checklisten anlegen</button></li>
             <li><button onClick={() => alert("Feature kommt bald!")}>⚙️ App-Thema (Dark/Light) ändern</button></li>
+            <li><button onClick={() => setShowDeletePanel(true)}>❌ Alle Einträge Löschen</button></li>
             <li><button onClick={() => alert("Feature kommt bald!")}>🔐 Account löschen</button></li>
           </ul>
         </div>
       </div>
+      {showStrategyPanel && (
+        <StrategyInfoPanel
+          strategyData={strategyData}
+          onClose={() => setShowStrategyPanel(false)}
+        />
+      )}
+
+      {showDeletePanel && (
+        <DeleteAllTradesPanel userId={userId} onClose={() => setShowDeletePanel(false)} />
+      )}
+
+      {showFehlerTagsPanel && (
+        <ErrorTagsMananger onClose={() => setShowFehlerTagsPanel(false)} />
+      )}
+
+      {showStrategiesPanel && <StrategyManagementPanel onClose={() => setShowStrategiesPanel(false)} />}
+
+      {showExportPanel && (
+        <ExportPanel
+          trades={trades}
+          onClose={() => setShowExportPanel(false)}
+        />
+      )}
+
       {showImportPanel && (
         <ImportPanel
           importFile={importFile}
@@ -154,7 +193,7 @@ export default function Profil() {
           setImporting={setImporting}
           onClose={() => setShowImportPanel(false)}
         />
-        )}
+      )}
     </div>
   );
 }

@@ -9,7 +9,7 @@ import { useAuth } from "@clerk/clerk-react";
 
 export default function AddPanel({ onClose, trade = null }) {
     const { userId } = useAuth();
-    
+
     const addTrade = useMutation(api.trades.addTrade);
     const updateTrade = useMutation(api.trades.updateTrade);
     const settings = useQuery(api.userSettings.getSettings, { userId: userId });
@@ -185,7 +185,7 @@ export default function AddPanel({ onClose, trade = null }) {
             : null;
         const tradeTime = manualTime
             ? new Date(time).toISOString()
-            : new Date().toISOString();
+            : trade?.date || new Date().toISOString();
 
         // Strategie in Liste sichern, wenn neu
         let updatedStrategies = strategies;

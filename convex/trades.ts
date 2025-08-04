@@ -123,5 +123,18 @@ export const importTrades = mutation({
   },
 });
 
+export const deleteAllTrades = mutation({
+  args: { userId: v.string() },
+  handler: async (ctx, args) => {
+    const trades = await ctx.db
+      .query("trades")
+      .withIndex("by_user", q => q.eq("userId", args.userId))
+      .collect();
+
+    for (const trade of trades) {
+      await ctx.db.delete(trade._id);
+    }
+  },
+});
 
 

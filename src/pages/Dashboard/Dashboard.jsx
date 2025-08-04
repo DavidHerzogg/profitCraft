@@ -22,7 +22,7 @@ import ChartPick from "../../assets/chart-1942060_1280.jpg"
 import ShopPick from "../../assets/coffee-shop-6771371_1280.jpg"
 
 import { useAuth } from "@clerk/clerk-react";
-import { StartCapitalPanel } from "../../components/startCapitalPanel"
+import { StartCapitalPanel } from "../../components/Profil/startCapitalPanel"
 
 export default function Dashboard() {
   const { userId } = useAuth();
