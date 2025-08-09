@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import WelcomePage from "./pages/Welcome/WelcomePage";
 import { useUser } from '@clerk/clerk-react';
 import { Navigate } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 
 function AuthGate({ children }) {
   const { isLoaded, isSignedIn } = useUser();
@@ -26,6 +27,7 @@ function AuthGate({ children }) {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* Öffentliche Routen */}
         <Route path="/welcome" element={<WelcomePage />} />

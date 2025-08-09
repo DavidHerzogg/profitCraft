@@ -8,6 +8,7 @@ export default defineSchema({
     date: v.string(),
     profit: v.number(),
     ratio: v.number(),
+    timeframe: v.optional(v.string()),
     entry: v.optional(v.number()),
     exit: v.optional(v.number()),
     size: v.optional(v.number()),
