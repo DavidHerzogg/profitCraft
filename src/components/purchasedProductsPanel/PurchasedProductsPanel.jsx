@@ -26,10 +26,10 @@ export default function PurchasedProductsPanel({
         aria-modal="true"
         aria-labelledby="purchased-panel-title"
       >
-        <div className="purchased-panel-header">
-          <h2 id="purchased-panel-title" className="purchased-panel-title">
+        <div className="header">
+          <h1 id="purchased-panel-title" className="purchased-panel-title">
             Erworbene Produkte
-          </h2>
+          </h1>
           <button
             className="purchased-panel-close-btn"
             onClick={onClose}
@@ -38,39 +38,42 @@ export default function PurchasedProductsPanel({
             ×
           </button>
         </div>
-
-        {products.length === 0 ? (
-          <p className="purchased-panel-empty-text">
-            Du hast noch keine Produkte erworben.
-          </p>
-        ) : (
-          <ul className="purchased-product-list">
-            {products.map((product) => (
-              <li
-                key={String(product._id)}
-                className="purchased-product-item"
-                tabIndex={0}
-              >
-                <div className="purchased-product-info">
-                  <h3 className="purchased-product-title">{product.title}</h3>
-                  {product.description && (
-                    <p className="purchased-product-description">
-                      {product.description}
-                    </p>
-                  )}
-                </div>
-                <button
-                  className="purchased-product-open-btn"
-                  onClick={() => {
-                    navigate(`/product/${product._id}`);
-                  }}
-                >
-                  Zugang öffnen
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+        <div className="scrollable-content">
+          {products.length === 0 ? (
+            <p className="purchased-panel-empty-text">
+              Du hast noch keine Produkte erworben.
+            </p>
+          ) : (
+            <div className="form-content">
+              <ul className="purchased-product-list">
+                {products.map((product) => (
+                  <li
+                    key={String(product._id)}
+                    className="purchased-product-item"
+                    tabIndex={0}
+                  >
+                    <div className="purchased-product-info input-group">
+                      <h3 className="purchased-product-title">{product.title}</h3>
+                      {product.description && (
+                        <p className="purchased-product-description">
+                          {product.description}
+                        </p>
+                      )}
+                    </div>
+                    <button
+                      className="purchased-product-open-btn"
+                      onClick={() => {
+                        navigate(`/product/${product._id}`);
+                      }}
+                    >
+                      Zugang öffnen
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

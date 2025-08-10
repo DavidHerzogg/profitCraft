@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import { useQuery } from "convex/react";
 import "./Shop.scss";
-import ChartPick from "../../assets/chart-1942060_1280.jpg"
 
 export default function Shop() {
   const [selectedCategory, setSelectedCategory] = useState("empfohlen");

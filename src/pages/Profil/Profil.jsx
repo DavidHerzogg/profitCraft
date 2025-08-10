@@ -12,7 +12,8 @@ import ErrorTagsMananger from "../../components/Profil/ErrorTagsMananger";
 import StrategyManagementPanel from "../../components/Profil/StrategyManagementPanel";
 import DeleteAllTradesPanel from "../../components/Profil/DeleteAllTradesPanel";
 import { StartCapitalPanel } from "../../components/Profil/startCapitalPanel";
-import { ExportPanel } from "../../components/Profil/ExportPanel"
+import { ExportPanel } from "../../components/Profil/ExportPanel";
+import { CgProfile } from "react-icons/cg";
 
 import JSZip from "jszip";
 
@@ -107,7 +108,7 @@ export default function Profil() {
   return (
     <div className="pageContent">
       <header>
-        <h1>Profil</h1>
+        <h1><CgProfile />Profil</h1>
         <button className="signout" onClick={() => signOut()}>
           <PiSignOutBold /> Abmelden
         </button>

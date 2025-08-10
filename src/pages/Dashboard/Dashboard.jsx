@@ -17,6 +17,7 @@ import { IoClose } from "react-icons/io5";
 import { IoIosCloseCircle } from "react-icons/io";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { LuTableOfContents } from "react-icons/lu";
+import { MdSpaceDashboard } from "react-icons/md";
 
 import ChartPick from "../../assets/chart-1942060_1280.jpg"
 import ShopPick from "../../assets/coffee-shop-6771371_1280.jpg"
@@ -86,10 +87,10 @@ export default function Dashboard() {
   return (
     <div className="pageContent">
       <header id="header">
-        <h1>Dashboard</h1>
-        <button className="rescources" onClick={openProductsPanel}>
-          <LuTableOfContents style={{ fontSize: "1.8rem" }} />
-          <span className="rescources-text">Meine Inhalte</span>
+        <h1><MdSpaceDashboard />Dashboard</h1>
+        <button className="clean-btn" onClick={openProductsPanel}>
+          <LuTableOfContents style={{ fontSize: "1.4rem" }} />
+          <span className="rescources-text">Inhalte</span>
         </button>
       </header>
 

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import ProfitCraftMini from '../../assets/ProfitCraftMini.png';
+import ProfitCraftMini from '../../assets/ProfitCraftMiniBackgroundRemoved.png';
 import './Navbar.scss';
 
 function Navbar() {

@@ -13,6 +13,7 @@ import { IoMdInformationCircle } from "react-icons/io";
 import { TradeInfoPanel } from '../../components/tradeInfoPanel/TradeInfoPanel';
 import { IoCheckmarkCircle } from "react-icons/io5";
 import ChecklistPanel from '../../components/checklistPanel/checklistPanel';
+import { MdOutlineLibraryBooks } from "react-icons/md";
 
 import { useAuth } from "@clerk/clerk-react";
 
@@ -209,23 +210,23 @@ export default function Journal() {
   return (
     <div className='pageContent'>
       <header>
-        <h1>Journal</h1>
+        <h1><MdOutlineLibraryBooks />Journal</h1>
         <div className="btns">
           <button
             className={`filter ${isFilterActive ? 'active' : ''}`}
             onClick={() => setShowChecklistPanel(true)}
           >
             <IoCheckmarkCircle />
-            Checkliste
+            <span className='hiddingText'>Checkliste</span>
           </button>
           <button
             className={`filter ${isFilterActive ? 'active' : ''}`}
             onClick={() => setShowFilterPanel(true)}
           >
             <FaFilter />
-            Filter
+            <span className='hiddingText'>Filter</span>
           </button>
-          <button onClick={openAddPanel}><IoMdAdd color='white' className='IoMdAdd' /></button>
+          <button className="add" onClick={openAddPanel}><IoMdAdd color='white' className='IoMdAdd' /></button>
         </div>
       </header>
       {activeFilters.length > 0 && (
@@ -252,6 +253,7 @@ export default function Journal() {
             <th>Wert</th>
             <th>G/V</th>
             <th>RRR</th>
+            <th>Timeframe</th>
             <th>Fehler Tags</th>
             <th>Strategie</th>
             <th>Long/Short</th>
@@ -266,9 +268,15 @@ export default function Journal() {
             .sort((a, b) => new Date(b.date) - new Date(a.date))
             .map(trade => (
               <tr key={trade._id}>
-                <td ><span className='tdName' onClick={() => setSelectedTrade(trade)} style={{ cursor: "pointer" }}>{trade.name} <IoMdInformationCircle className='IoMdInformationCircle' /></span></td>
+                <td>
+                  <span className='tdName' onClick={() => setSelectedTrade(trade)}>
+                    <span className='name-text'>{trade.name}</span>
+                    <IoMdInformationCircle className='IoMdInformationCircle' />
+                  </span>
+                </td>
                 <td>{trade.profit >= 0 ? "+" + trade.profit : trade.profit}€</td>
                 <td>{trade.ratio}</td>
+                <td>{trade.timeframe}</td>
                 <td>
                   {trade.errorTags.map((tag, index) => (
                     <span className='banner tag' key={index}>#{tag}</span>
@@ -311,5 +319,5 @@ export default function Journal() {
         <ChecklistPanel onClose={() => setShowChecklistPanel(false)} />
       )}
     </div>
-  )
+  );
 }

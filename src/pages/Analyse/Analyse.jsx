@@ -13,11 +13,12 @@ import { AvgProfitLossChart } from "../../components/analytics/AvgProfitLossChar
 import { PerformanceByHourChart } from "../../components/analytics/PerformanceByHourChart";
 import { LazyChartWrapper } from '../../components/lazyChartWrapper';
 import { FilterPanelWrapper } from "../../components/filterPanelWrapper";
+import { GrAnalytics } from "react-icons/gr";
 
 import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
-import { FaFilter } from "react-icons/fa";
+import { FaFilter } from "react-icons/fa6";
 import { useAuth } from "@clerk/clerk-react"
 
 export default function Analyse() {
@@ -145,7 +146,7 @@ export default function Analyse() {
   return (
     <div className='pageContent'>
       <header>
-        <h1>Analyse</h1>
+        <h1><GrAnalytics />Analyse</h1>
         <div className="btns">
           <button
             className={`filter ${isFilterActive ? 'active' : ''}`}
@@ -175,7 +176,7 @@ export default function Analyse() {
         {/* Row 1 */}
         <div className="row_1">
           <div className="capital-Analyse panels">
-            <CapitalChart data={parsedTrades} startCapital={startCapital}/>
+            <CapitalChart data={parsedTrades} startCapital={startCapital} />
           </div>
           <aside>
             <div className="winrate-Analyse panels">
