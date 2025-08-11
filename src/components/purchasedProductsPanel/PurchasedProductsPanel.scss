@@ -2,7 +2,7 @@
   --BackgroundColor: #0b1825;
   --SurfaceColor: #162428;
   --PrimaryColor: #dbaf58;
-  --PrimaryHover: #b08e49;
+  --PrimaryHover: #b89642;
   --TextColor: #eee;
   --TextSecondary: #cccccc;
   --BorderColor: #666;
@@ -18,230 +18,273 @@
 .purchased-panel-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1000; /* Höherer z-index, um über der Navbar zu sein */
   background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Sicherstellen, dass der Overlay die volle Höhe nutzt */
 }
 
 .purchased-panel-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: var(--SurfaceColor);
-  padding: 20px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 500px;
   color: var(--TextColor);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  width: 85vw;
+  max-width: 31.25rem;
+  max-height: 85vh;
+  border-radius: 1rem;
   border: 1px solid var(--PrimaryColor);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  position: relative; /* Für zentrierte Positionierung */
+  z-index: 120;
+  overflow: hidden;
 }
 
 .header {
+  padding: 0.75rem;
+  margin: 0.5rem;
+  background-color: var(--SurfaceColor);
+  border-bottom: 1px solid var(--PrimaryColor);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--BorderColor); /* Trennlinie für Klarheit */
-  position: sticky; /* Fixiert den Header oben */
-  top: 0;
-  background-color: var(--SurfaceColor); /* Hintergrund, um Inhalt zu verdecken */
-  z-index: 10; /* Über dem scrollbaren Inhalt */
+}
 
-  .purchased-panel-title {
-    font-size: 1.25rem;
-    font-weight: 700; /* Fett gestaltet */
-    color: var(--PrimaryColor);
-    margin: 0;
+.purchased-panel-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
+  color: var(--TextColor);
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.purchased-panel-close-btn {
+  background-color: #2f3b3e;
+  color: #dddddd;
+  border: 1px solid #555;
+  border-radius: 0.375rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: #3f4b4e;
   }
 
-  .purchased-panel-close-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--PrimaryColor);
-    cursor: pointer;
-    padding: 0;
-    transition: color 0.2s ease;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(219, 175, 88, 0.3);
+  }
 
-    &:hover,
-    &:focus {
-      color: var(--PrimaryHover);
-      outline: none;
-    }
+  &:active {
+    background-color: #2f3b3e;
   }
 }
 
 .scrollable-content {
-  flex: 1;
   overflow-y: auto;
-  max-height: 70vh; /* Anpassung für besseren Raum unter dem Header */
-  scrollbar-width: thin; /* Für Firefox */
-  scrollbar-color: var(--BorderColor) transparent; /* Für Firefox */
-  margin-top: 0px; /* Abstand vom Header */
+  padding: 0.75rem;
+  margin-bottom: 0.75rem; /* Abstand unten, damit Scrollbar nicht am Rand klebt */
+  scrollbar-width: thin;
+  scrollbar-color: var(--BorderColor) transparent;
+  flex-grow: 1;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--BorderColor);
+    border-radius: 0.5rem;
+    transition: background 0.2s ease;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--PrimaryColor);
+  }
 }
 
-.scrollable-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.scrollable-content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.scrollable-content::-webkit-scrollbar-thumb {
-  background-color: #458acf;
-  border-radius: 4px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
+.purchased-panel-empty-text {
+  color: var(--TextSecondary);
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 1rem 0;
+  margin: 0;
 }
 
 .form-content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-.purchased-panel-empty-text {
-  font-size: 0.875rem;
-  color: var(--TextSecondary);
-  text-align: center;
-  margin: 0;
 }
 
 .purchased-product-list {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
+}
+
+.purchased-product-item {
+  background-color: var(--BackgroundColor);
+  border: 1px solid var(--BorderColor);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 0.5rem;
+  cursor: default;
+  outline-offset: 2px;
 
-  .purchased-product-item {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    background: var(--BackgroundColor);
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid var(--BorderColor);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 2px 6px rgba(219, 175, 88, 0.2);
-    }
-
-    .purchased-product-info {
-      .purchased-product-title {
-        margin: 0;
-        font-size: 1rem;
-        font-weight: 500;
-        color: var(--PrimaryColor);
-      }
-
-      .purchased-product-description {
-        margin: 0;
-        font-size: 0.875rem;
-        color: var(--TextSecondary);
-      }
-    }
-
-    .purchased-product-open-btn {
-      width: 100%;
-      background-color: var(--PrimaryColor);
-      color: var(--BackgroundColor);
-      padding: 8px;
-      border-radius: 6px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-
-      &:hover,
-      &:focus {
-        background-color: var(--PrimaryHover);
-        outline: none;
-      }
-    }
+  &:focus {
+    outline: 2px solid var(--PrimaryColor);
+    background-color: rgba(219, 175, 88, 0.1);
   }
 }
 
-/* Tablet (≤768px) */
+.purchased-product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.purchased-product-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--PrimaryColor);
+}
+
+.purchased-product-description {
+  font-size: 0.875rem;
+  color: var(--TextSecondary);
+  margin: 0;
+}
+
+.purchased-product-open-btn {
+  align-self: flex-start;
+  background-color: var(--PrimaryColor);
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  color: var(--BackgroundColor);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.9rem;
+
+  &:hover {
+    background-color: var(--PrimaryHover);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(219, 175, 88, 0.5);
+  }
+
+  &:active {
+    background-color: var(--PrimaryColor);
+  }
+}
+
+/* Responsive */
 @media screen and (max-width: 48rem) {
   .purchased-panel-container {
     width: 90vw;
-    max-width: 450px;
-    padding: 16px;
-    gap: 16px;
+    max-width: 25rem;
+    padding: 0.625rem;
   }
 
-  .header .purchased-panel-title {
+  .header {
+    padding: 0.625rem;
+  }
+
+  .purchased-panel-title {
     font-size: 1.125rem;
-    font-weight: 700; /* Fett gestaltet */
   }
 
-  .header .purchased-panel-close-btn {
-    font-size: 1.375rem;
-  }
-
-  .purchased-product-list .purchased-product-item {
-    padding: 10px;
-
-    .purchased-product-info .purchased-product-title {
-      font-size: 0.95rem;
-    }
-
-    .purchased-product-info .purchased-product-description {
-      font-size: 0.825rem;
-    }
-
-    .purchased-product-open-btn {
-      font-size: 0.9rem;
-      padding: 7px;
-    }
-  }
-}
-
-/* Mobile (≤600px) */
-@media screen and (max-width: 37.5rem) {
-  .purchased-panel-container {
-    width: 95vw;
-    max-width: 350px;
-    padding: 12px;
-    gap: 12px;
-  }
-
-  .header .purchased-panel-title {
-    font-size: 1rem;
-    font-weight: 700; /* Fett gestaltet */
-  }
-
-  .header .purchased-panel-close-btn {
+  .purchased-panel-close-btn {
+    width: 2.5rem;
+    height: 2.5rem;
     font-size: 1.25rem;
   }
 
-  .purchased-product-list .purchased-product-item {
-    padding: 8px;
+  .scrollable-content {
+    padding: 0.625rem;
+  }
 
-    .purchased-product-info .purchased-product-title {
-      font-size: 0.9rem;
-    }
+  .purchased-product-item {
+    padding: 0.5rem;
+  }
 
-    .purchased-product-info .purchased-product-description {
-      font-size: 0.75rem;
-    }
+  .purchased-product-title {
+    font-size: 1rem;
+  }
 
-    .purchased-product-open-btn {
-      font-size: 0.85rem;
-      padding: 6px;
-    }
+  .purchased-product-description {
+    font-size: 0.8rem;
+  }
+
+  .purchased-product-open-btn {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media screen and (max-width: 37.5rem) {
+  .purchased-panel-container {
+    width: 95vw;
+    max-width: 22rem;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+  }
+
+  .header {
+    padding: 0.5rem;
+  }
+
+  .purchased-panel-title {
+    font-size: 1rem;
+  }
+
+  .purchased-panel-close-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1.125rem;
+  }
+
+  .scrollable-content {
+    padding: 0.5rem;
+  }
+
+  .purchased-product-item {
+    padding: 0.4rem;
+  }
+
+  .purchased-product-title {
+    font-size: 0.9rem;
+  }
+
+  .purchased-product-description {
+    font-size: 0.75rem;
+  }
+
+  .purchased-product-open-btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
   }
 }

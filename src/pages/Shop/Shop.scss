@@ -1,12 +1,15 @@
 .pageContent {
   width: 100%;
 
-  .mainContent {
+  .Shop-mainContent {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 2rem;
-    justify-content: space-evenly;
+    justify-content: space-evenly; /* Desktop default */
+    margin-top: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .shopItem {
@@ -14,10 +17,11 @@
     background-color: var(--SurfaceColor);
     border: 1px solid var(--SecondaryColor);
     border-radius: 14px;
-    width: calc(25% - 1.5rem); // exakt 4 pro Reihe
+
+    width: calc(25% - 1.5rem); /* Desktop: 4 per row (original) */
     min-width: 240px;
-    max-width: 300px;
     height: 410px;
+
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
@@ -43,12 +47,9 @@
       img {
         width: 100%;
         height: 100%;
-        object-fit: fill;
+        object-fit: cover;
         transition: transform 0.3s ease;
-
-        &:hover {
-          transform: scale(1.02);
-        }
+        &:hover { transform: scale(1.02); }
       }
     }
 
@@ -95,51 +96,78 @@
       }
     }
   }
-}
 
-/* Optional: responsive fallback */
-@media (max-width: 1200px) {
-  .shopItem {
-    width: calc(33.333% - 1.5rem);
-  }
-}
-
-@media (max-width: 900px) {
-  .shopItem {
-    width: calc(50% - 1.5rem);
-  }
-}
-
-@media (max-width: 600px) {
-  .shopItem {
-    width: 100%;
-  }
-}
-
-.filterBar {
-  display: flex;
-  gap: 1rem;
-  margin: 1rem 2rem 0rem 2rem;
-  flex-wrap: wrap;
-}
-
-.filterBtn {
-  background-color: transparent;
-  color: var(--PrimaryColor);
-  border: 1px solid var(--PrimaryColor);
-  padding: 0.5rem 1.2rem;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-
-  &:hover {
-    background-color: var(--PrimaryColor);
-    color: var(--BackgroundColor);
+  /* responsiveness: original fallbacks */
+  @media (max-width: 1200px) {
+    .shopItem { width: calc(33.333% - 1.5rem); }
   }
 
-  &.active {
-    background-color: var(--PrimaryColor);
-    color: var(--BackgroundColor);
+  @media (max-width: 900px) {
+    .shopItem { width: calc(50% - 4rem); }
+  }
+
+  /* MOBILE: fixed 350px per item, centered, no overflow */
+  @media (max-width: 600px) {
+    .Shop-mainContent {
+      /* Grid approach is more robust for fixed card widths */
+      display: grid;
+      grid-template-columns: repeat(auto-fit, 350px);
+      justify-content: center; /* center the grid track(s) */
+      gap: 1rem; /* smaller gap on mobile */
+      padding-left: 1rem;
+      padding-right: 1rem;
+      margin-top: 1rem;
+    }
+
+    .shopItem {
+      width: 350px;
+      min-width: 0;      /* allow shrinking via max-width fallback below */
+      max-width: 350px;
+      box-sizing: border-box;
+    }
+  }
+
+  /* fallback for very small viewports (prevent horizontal scrolling) */
+  @media (max-width: 380px) {
+    .Shop-mainContent {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    .shopItem {
+      width: calc(100% - 4rem); /* fit viewport with small buffer */
+      max-width: calc(100% - 4rem);
+    }
+  }
+
+  /* filter bar and buttons */
+  .filterBar {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 2rem 0 2rem;
+    flex-wrap: wrap;
+  }
+
+  .filterBtn {
+    background-color: transparent;
+    color: var(--PrimaryColor);
+    border: 1px solid var(--PrimaryColor);
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: var(--PrimaryColor);
+      color: var(--BackgroundColor);
+    }
+
+    &.active {
+      background-color: var(--PrimaryColor);
+      color: var(--BackgroundColor);
+    }
   }
 }

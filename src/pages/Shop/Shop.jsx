@@ -52,7 +52,7 @@ export default function Shop() {
         ))}
       </div>
 
-      <main className="mainContent">
+      <main className="Shop-mainContent">
         {filteredProducts.map((item, i) => (
           <section key={i} className="shopItem">
             <div className="imageWrapper">

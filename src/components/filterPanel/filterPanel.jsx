@@ -41,8 +41,8 @@ export default function FilterPanel({ filterState, setFilterState, onClose, onAp
     <div className="filter-blur">
       <div className="filter-panel" role="dialog" aria-modal="true" aria-labelledby="filterTitle">
         <div className="filter-header">
-          <h2 id="filterTitle">Filter</h2>
-          <button onClick={onClose} aria-label="Schließen" className="close-btn">
+          <h2 id="filterTitle"><span>Filter</span></h2>
+          <button onClick={onClose} aria-label="Schließen" title="Filter schließen" className="close-btn">
             <IoClose />
           </button>
         </div>

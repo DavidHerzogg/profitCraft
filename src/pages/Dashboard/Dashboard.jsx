@@ -107,7 +107,7 @@ export default function Dashboard() {
       )}
 
 
-      <div className="mainContent mainContent-overwrite">
+      <div className="Dashboard-mainContent">
         <ImageSlider />
 
         <div className="capital">

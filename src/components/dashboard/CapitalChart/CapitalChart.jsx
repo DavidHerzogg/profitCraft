@@ -152,7 +152,7 @@ export const CapitalChart = ({ data, startCapital = 0 }) => {
     cursor: "pointer",
     transition: "background-color 0.2s",
   });
-  const chartWrapperStyle = { width: "100%", height: "360px", borderRadius: 12, overflow: "hidden" };
+  const chartWrapperStyle = { width: "100%", height: "380px", borderRadius: 12, overflow: "hidden" };
 
   return (
     <div style={containerStyle}>

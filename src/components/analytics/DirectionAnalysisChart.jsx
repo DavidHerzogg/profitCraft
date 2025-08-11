@@ -68,11 +68,11 @@ export function DirectionAnalysisChart({ trades = [] }) {
   };
 
   return (
-    <div style={{ width: "100%", height: 350, fontFamily: "Arial, sans-serif" }}>
+    <div style={{ width: "100%", height: 420, fontFamily: "Arial, sans-serif" }}>
       <h3 style={{ color: "#fff", fontWeight: "bold", marginBottom: 50 }}>
         Analyse der Handelsrichtung
       </h3>
-      <div style={{ width: "100%", height: "calc(100% - 48px)" }}>
+      <div style={{ width: "100%", height: "calc(100% - 70px)" }}>
         <Pie data={data} options={options} />
       </div>
     </div>

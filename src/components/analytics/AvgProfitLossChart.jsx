@@ -132,7 +132,7 @@ export function AvgProfitLossChart({ trades = [] }) {
       <div style={{ color: "#fff", fontWeight: "700", fontSize: 18, marginBottom: 8 }}>
         Durchschnittlicher Gewinn & Verlust je Symbol
       </div>
-      <div style={{ height: "calc(100% - 40px)" }}>
+      <div style={{ height: "calc(100% - 45px)" }}>
         {chartData.labels.length === 0 ? (
           <div style={{ color: "#777", fontStyle: "italic" }}>Keine Daten vorhanden.</div>
         ) : (

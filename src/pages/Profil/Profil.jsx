@@ -113,88 +113,90 @@ export default function Profil() {
           <PiSignOutBold /> Abmelden
         </button>
       </header>
+      <div className="Profile-mainContent">
 
-      <div className="profile-container">
-        {showStartCapitalPanel && (
-          <StartCapitalPanel onComplete={() => setShowStartCapitalPanel(false)} />
-        )}
+        <div className="profile-container">
+          {showStartCapitalPanel && (
+            <StartCapitalPanel onComplete={() => setShowStartCapitalPanel(false)} />
+          )}
 
-        <div className="profile-header">
-          <img src={user.imageUrl || altImg} alt="Profil" className="profile-avatar" />
-          <div>
-            <h2>{user.fullName || user.emailAddresses[0]?.emailAddress}</h2>
-            <p>Clerk-ID: {user.id}</p>
+          <div className="profile-header">
+            <img src={user.imageUrl || altImg} alt="Profil" className="profile-avatar" />
+            <div>
+              <h2>{user.fullName || user.emailAddresses[0]?.emailAddress}</h2>
+              <p>Clerk-ID: {user.id}</p>
+            </div>
+          </div>
+
+          <div className="profile-stats">
+            <div className="stat-card"><span>Trades: </span><strong>{totalTrades}</strong></div>
+            <div className="stat-card"><span>Winrate: </span><strong>{winrate}%</strong></div>
+            <div className="stat-card"><span>Ø Profit: </span><strong>{avgProfit}</strong></div>
+            <div className="stat-card"><span>Top Strategie: </span><strong>{topStrategy}</strong></div>
+            <div className="stat-card"><span>Käufe: </span><strong>{purchased.length}</strong></div>
+          </div>
+
+          <div className="profile-settings">
+            <h3>Nützliche Einstellungen</h3>
+            <ul>
+              <li><button onClick={() => setShowExportPanel(true)}>📥 Trade Daten exportieren</button></li>
+              <li><button onClick={() => setShowImportPanel(!showImportPanel)}>📤 Trade Daten importieren</button></li>
+              <li><button onClick={() => setShowStartCapitalPanel(true)}>💰 Startkapital ändern</button></li>
+              <li><button onClick={() => alert("Feature kommt bald!")}>📊 Persönliche Analyse anfordern</button></li>
+              <li><button onClick={() => setShowStrategyPanel(true)}>🎯 Strategieauswertung anzeigen</button></li>
+              <li><button onClick={() => setShowFehlerTagsPanel(true)}>🎛️ Fehler-Tags verwalten</button></li>
+              <li><button onClick={() => setShowStrategiesPanel(true)}>🧠 Strategien verwalten</button></li>
+              <li><button onClick={() => alert("Feature kommt bald!")}>📝 Eigene Checklisten anlegen</button></li>
+              <li><button onClick={() => alert("Feature kommt bald!")}>⚙️ App-Thema (Dark/Light) ändern</button></li>
+              <li><button onClick={() => setShowDeletePanel(true)}>❌ Alle Einträge Löschen</button></li>
+              <li><button onClick={() => alert("Feature kommt bald!")}>🔐 Account löschen</button></li>
+            </ul>
           </div>
         </div>
+        {showStrategyPanel && (
+          <StrategyInfoPanel
+            strategyData={strategyData}
+            onClose={() => setShowStrategyPanel(false)}
+          />
+        )}
 
-        <div className="profile-stats">
-          <div className="stat-card"><span>Trades: </span><strong>{totalTrades}</strong></div>
-          <div className="stat-card"><span>Winrate: </span><strong>{winrate}%</strong></div>
-          <div className="stat-card"><span>Ø Profit: </span><strong>{avgProfit}</strong></div>
-          <div className="stat-card"><span>Top Strategie: </span><strong>{topStrategy}</strong></div>
-          <div className="stat-card"><span>Käufe: </span><strong>{purchased.length}</strong></div>
-        </div>
+        {showDeletePanel && (
+          <DeleteAllTradesPanel userId={userId} onClose={() => setShowDeletePanel(false)} />
+        )}
 
-        <div className="profile-settings">
-          <h3>Nützliche Einstellungen</h3>
-          <ul>
-            <li><button onClick={() => setShowExportPanel(true)}>📥 Trade Daten exportieren</button></li>
-            <li><button onClick={() => setShowImportPanel(!showImportPanel)}>📤 Trade Daten importieren</button></li>
-            <li><button onClick={() => setShowStartCapitalPanel(true)}>💰 Startkapital ändern</button></li>
-            <li><button onClick={() => alert("Feature kommt bald!")}>📊 Persönliche Analyse anfordern</button></li>
-            <li><button onClick={() => setShowStrategyPanel(true)}>🎯 Strategieauswertung anzeigen</button></li>
-            <li><button onClick={() => setShowFehlerTagsPanel(true)}>🎛️ Fehler-Tags verwalten</button></li>
-            <li><button onClick={() => setShowStrategiesPanel(true)}>🧠 Strategien verwalten</button></li>
-            <li><button onClick={() => alert("Feature kommt bald!")}>📝 Eigene Checklisten anlegen</button></li>
-            <li><button onClick={() => alert("Feature kommt bald!")}>⚙️ App-Thema (Dark/Light) ändern</button></li>
-            <li><button onClick={() => setShowDeletePanel(true)}>❌ Alle Einträge Löschen</button></li>
-            <li><button onClick={() => alert("Feature kommt bald!")}>🔐 Account löschen</button></li>
-          </ul>
-        </div>
+        {showFehlerTagsPanel && (
+          <ErrorTagsMananger onClose={() => setShowFehlerTagsPanel(false)} />
+        )}
+
+        {showStrategiesPanel && <StrategyManagementPanel onClose={() => setShowStrategiesPanel(false)} />}
+
+        {showExportPanel && (
+          <ExportPanel
+            trades={trades}
+            onClose={() => setShowExportPanel(false)}
+          />
+        )}
+
+        {showImportPanel && (
+          <ImportPanel
+            importFile={importFile}
+            setImportFile={setImportFile}
+            importMode={importMode}
+            setImportMode={setImportMode}
+            onImportSuccess={async (data, mode) => {
+              const mapped = data.map(t => ({
+                ...t,
+                name: t.name ? t.name + " - import" : "importierter Trade",
+              }));
+              await importTrades({ trades: mapped, mode });
+            }}
+            handleImportData={handleImportData}
+            importing={importing}
+            setImporting={setImporting}
+            onClose={() => setShowImportPanel(false)}
+          />
+        )}
       </div>
-      {showStrategyPanel && (
-        <StrategyInfoPanel
-          strategyData={strategyData}
-          onClose={() => setShowStrategyPanel(false)}
-        />
-      )}
-
-      {showDeletePanel && (
-        <DeleteAllTradesPanel userId={userId} onClose={() => setShowDeletePanel(false)} />
-      )}
-
-      {showFehlerTagsPanel && (
-        <ErrorTagsMananger onClose={() => setShowFehlerTagsPanel(false)} />
-      )}
-
-      {showStrategiesPanel && <StrategyManagementPanel onClose={() => setShowStrategiesPanel(false)} />}
-
-      {showExportPanel && (
-        <ExportPanel
-          trades={trades}
-          onClose={() => setShowExportPanel(false)}
-        />
-      )}
-
-      {showImportPanel && (
-        <ImportPanel
-          importFile={importFile}
-          setImportFile={setImportFile}
-          importMode={importMode}
-          setImportMode={setImportMode}
-          onImportSuccess={async (data, mode) => {
-            const mapped = data.map(t => ({
-              ...t,
-              name: t.name ? t.name + " - import" : "importierter Trade",
-            }));
-            await importTrades({ trades: mapped, mode });
-          }}
-          handleImportData={handleImportData}
-          importing={importing}
-          setImporting={setImporting}
-          onClose={() => setShowImportPanel(false)}
-        />
-      )}
     </div>
   );
 }

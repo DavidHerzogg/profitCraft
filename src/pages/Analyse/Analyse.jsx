@@ -172,7 +172,7 @@ export default function Analyse() {
         />
       )}
 
-      <div className="mainContent charts">
+      <div className="Anylse-mainContent">
         {/* Row 1 */}
         <div className="row_1">
           <div className="capital-Analyse panels">

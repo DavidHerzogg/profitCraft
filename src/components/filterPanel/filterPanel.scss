@@ -18,296 +18,300 @@
 .filter-blur {
   position: fixed;
   inset: 0;
-  z-index: 1000;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.3s ease;
 }
 
 .filter-panel {
   background-color: var(--SurfaceColor);
-  padding: 1rem;
-  border-radius: 0.75rem;
-  width: 90vw;
-  max-width: 28rem;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  width: 85vw;
+  max-width: 31.25rem;
   color: var(--TextColor);
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
   border: 1px solid var(--PrimaryColor);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  max-height: 85vh;
+  max-height: 80vh; /* Beschränkung auf Viewport-Höhe */
+}
 
-  .filter-header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background-color: var(--SurfaceColor);
-    padding: 0 0.5rem 0.5rem;
-    border-bottom: 1px solid var(--BorderColor);
+.filter-content {
+  margin-top: 10px;
+  flex: 1 1 auto;
+  max-height: calc(80vh - 4.5rem); /* Dynamisch Höhe minus Header + Footer Höhe (~3rem + 1.5rem) */
+  overflow-y: auto;
+  margin-bottom: 0.5rem; /* Verhindert Scrollbar Überlappung mit border-radius */
+  scrollbar-width: thin;
+  scrollbar-color: var(--BorderColor) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--BorderColor);
+    border-radius: 0.5rem;
+    transition: background 0.2s ease;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--PrimaryColor);
+  }
+}
+
+.filter-header {
+  padding: 1rem 0.75rem; /* Mehr Padding für bessere Optik */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--PrimaryColor);
+
+  h1 {
+    font-size: 1.5rem; /* Größer für mehr Präsenz */
+    font-weight: bold;
+    color: var(--TextColor);
+    margin: 0;
+    min-width: 0;
+    flex-shrink: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .close-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.375rem;
+    background-color: #2f3b3e;
+    color: #dddddd;
+    border: 1px solid #555;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    flex-shrink: 0;
 
-    h2 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin: 0;
-      color: var(--PrimaryColor);
+    &:hover {
+      background-color: #3f4b4e;
+    }
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(219, 175, 88, 0.3);
+    }
+    &:active {
+      background-color: #2f3b3e;
     }
 
-    .close-btn {
-      width: 2rem;
-      height: 2rem;
-      background-color: var(--BackgroundColor);
-      color: var(--PrimaryColor);
-      border-radius: 0.375rem;
-      border: 1px solid var(--BorderColor);
-      font-size: 1.125rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-
-      &:hover,
-      &:focus {
-        background-color: var(--PrimaryHover);
-        color: var(--SurfaceColor);
-        border-color: var(--PrimaryHover);
-        outline: none;
-      }
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
+}
 
-  .filter-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 0 0.5rem;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--BorderColor) var(--SurfaceColor);
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0 0.75rem 0.75rem 0.75rem;
 
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: var(--SurfaceColor);
-      border-radius: 0.375rem;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: var(--BorderColor);
-      border-radius: 0.375rem;
-      transition: background 0.2s ease;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background: var(--PrimaryColor);
-    }
+  label {
+    font-size: 0.875rem;
+    color: var(--TextSecondary);
   }
 
-  .filter-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  &.checkbox-group {
+    gap: 0.75rem;
 
     label {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--TextSecondary);
-    }
-
-    &.checkbox-group {
-      gap: 0.75rem;
-
-      label {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: var(--TextColor);
-        cursor: pointer;
-        transition: color 0.2s ease;
-
-        input[type="checkbox"] {
-          width: 1.125rem;
-          height: 1.125rem;
-          border-radius: 0.25rem;
-          border: 1px solid var(--BorderColor);
-          background: var(--BackgroundColor);
-          cursor: pointer;
-          appearance: none;
-          display: grid;
-          place-content: center;
-          transition: all 0.2s ease;
-
-          &:checked {
-            background-color: var(--PrimaryColor);
-            border-color: var(--PrimaryColor);
-          }
-
-          &:checked::before {
-            content: "✔";
-            font-size: 0.875rem;
-            font-weight: 700;
-            color: var(--SurfaceColor);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-          }
-
-          &:focus {
-            outline: none;
-            border-color: var(--PrimaryColor);
-            box-shadow: 0 0 0 2px rgba(219, 175, 88, 0.3);
-          }
-
-          &:hover {
-            border-color: var(--PrimaryColor);
-          }
-        }
-
-        &:hover {
-          color: var(--TextColor);
-        }
-      }
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-
-      .tag {
-        padding: 0.5rem 0.75rem;
-        background-color: var(--BackgroundColor);
-        border: 1px solid var(--BorderColor);
-        border-radius: 0.375rem;
-        font-size: 0.875rem;
-        color: var(--TextColor);
-        cursor: pointer;
-        transition: all 0.2s ease;
-        min-height: 2rem;
-        display: flex;
-        align-items: center;
-
-        &:hover {
-          background-color: #1e2a34;
-          border-color: var(--PrimaryColor);
-        }
-
-        &.selected {
-          background-color: var(--PrimaryColor);
-          color: var(--SurfaceColor);
-          font-weight: 600;
-          border-color: var(--PrimaryColor);
-        }
-      }
-    }
-
-    .range-row,
-    .date-range {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      flex-wrap: wrap;
+      font-size: 0.875rem;
+      color: var(--TextColor);
+      cursor: pointer;
+      transition: color 0.2s ease;
 
-      .filter-input {
-        flex: 1;
-        padding: 0.5rem;
-        border-radius: 0.375rem;
-        background-color: var(--BackgroundColor);
-        color: var(--TextColor);
+      input[type="checkbox"] {
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 0.25rem;
         border: 1px solid var(--BorderColor);
-        font-size: 0.875rem;
-        height: 2.25rem;
-        max-width: 8rem;
-        transition: border-color 0.2s ease;
+        background: var(--BackgroundColor);
+        cursor: pointer;
+        appearance: none;
+        display: grid;
+        place-content: center;
+        transition: all 0.2s ease;
 
+        &:checked {
+          background-color: var(--PrimaryColor);
+          border-color: var(--PrimaryColor);
+        }
+        &:checked::before {
+          content: "✔";
+          font-size: 0.875rem;
+          font-weight: 700;
+          color: var(--SurfaceColor);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          line-height: 1;
+        }
         &:focus {
           outline: none;
           border-color: var(--PrimaryColor);
+          box-shadow: 0 0 0 2px rgba(219, 175, 88, 0.3);
+        }
+        &:hover {
+          border-color: var(--PrimaryColor);
         }
       }
 
-      span {
-        font-size: 0.875rem;
-        color: var(--TextSecondary);
+      &:hover {
+        color: var(--TextColor);
       }
     }
+  }
 
-    .filter-select {
-      padding: 0.5rem;
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    .tag {
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.375rem;
+      background-color: #2f3b3e;
+      color: var(--TextColor);
+      border: 1px solid var(--BorderColor);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      box-sizing: border-box;
+      min-height: 2.75rem;
+      display: flex;
+      align-items: center;
+
+      &.selected {
+        background-color: var(--PrimaryColor);
+        color: var(--SurfaceColor);
+        font-weight: 600;
+      }
+    }
+  }
+
+  .range-row,
+  .date-range {
+    display: flex;
+    gap: 0.625rem;
+    flex-wrap: wrap;
+
+    .filter-input {
+      flex: 1;
+      padding: 0.625rem;
       border-radius: 0.375rem;
       background-color: var(--BackgroundColor);
       color: var(--TextColor);
       border: 1px solid var(--BorderColor);
-      font-size: 0.875rem;
-      height: 2.25rem;
-      transition: border-color 0.2s ease;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23cccccc' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 0.5rem center;
-      background-size: 0.75rem;
+      font-size: 1rem;
+      box-sizing: border-box;
+      height: 2.75rem;
+      min-width: 0;
 
       &:focus {
         outline: none;
         border-color: var(--PrimaryColor);
         box-shadow: 0 0 0 2px rgba(219, 175, 88, 0.3);
       }
+    }
 
-      &:hover {
-        border-color: var(--PrimaryColor);
-      }
+    span {
+      font-size: 0.875rem;
+      color: var(--TextSecondary);
+      display: flex;
+      align-items: center;
     }
   }
 
-  .filter-bottom {
-    position: sticky;
-    bottom: 0;
-    z-index: 10;
-    background-color: var(--SurfaceColor);
-    padding: 0.75rem 0.5rem;
-    border-top: 1px solid var(--BorderColor);
-    display: flex;
-    gap: 0.5rem;
+  .filter-select {
+    width: 100%;
+    padding: 0.625rem;
+    border-radius: 0.375rem;
+    background-color: var(--BackgroundColor);
+    color: var(--TextColor);
+    border: 1px solid var(--BorderColor);
+    font-size: 1rem;
+    box-sizing: border-box;
+    height: 2.75rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23cccccc' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.625rem center;
+    background-size: 0.75rem;
 
-    .cancel-btn,
-    .save-btn {
-      flex: 1;
-      padding: 0.5rem;
-      border-radius: 0.375rem;
-      font-size: 0.875rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      height: 2.25rem;
+    &:focus {
+      outline: none;
+      border-color: var(--PrimaryColor);
+      box-shadow: 0 0 0 2px rgba(219, 175, 88, 0.3);
     }
 
-    .cancel-btn {
+    &:hover {
+      border-color: var(--PrimaryColor);
+    }
+  }
+}
+
+.filter-bottom {
+  display: flex;
+  gap: 0.625rem;
+  margin-top: auto; /* wichtig: Footer immer unten */
+  padding: 0.75rem;
+  border-top: 1px solid var(--BorderColor);
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  background-color: var(--SurfaceColor);
+
+  .cancel-btn,
+  .save-btn {
+    flex: 1;
+    padding: 0.625rem;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    box-sizing: border-box;
+    height: 2.75rem;
+
+    &.cancel-btn {
       background-color: #2f3b3e;
       color: var(--TextColor);
       border: 1px solid var(--BorderColor);
+      font-weight: 500;
 
       &:hover {
         background-color: #3f4b4e;
-        border-color: var(--PrimaryColor);
       }
     }
 
-    .save-btn {
+    &.save-btn {
       background-color: var(--PrimaryColor);
       color: var(--SurfaceColor);
       border: none;
+      font-weight: 600;
 
       &:hover {
         background-color: var(--PrimaryHover);
@@ -316,107 +320,102 @@
   }
 }
 
-@keyframes fadeIn {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
 /* Tablet (≤768px) */
 @media screen and (max-width: 48rem) {
   .filter-panel {
-    width: 85vw;
-    max-width: 24rem;
-    padding: 0.75rem;
-    max-height: 80vh;
+    width: 90vw;
+    max-width: 25rem;
+    padding: 0.625rem;
+    max-height: 85vh;
+  }
 
-    .filter-header {
-      h2 {
-        font-size: 1.125rem;
-      }
+  .filter-content {
+    max-height: calc(85vh - 4.5rem);
+  }
 
-      .close-btn {
-        width: 1.75rem;
-        height: 1.75rem;
-        font-size: 1rem;
-      }
+  .filter-header {
+    padding: 0.75rem 0.625rem;
+    border-bottom: 1px solid var(--PrimaryColor);
+
+    h1 {
+      font-size: 1.25rem;
     }
 
-    .filter-content {
-      gap: 0.75rem;
+    .close-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.25rem;
+
+      svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+  }
+
+  .filter-section {
+    padding: 0 0.625rem 0.625rem 0.625rem;
+
+    label {
+      font-size: 0.8125rem;
     }
 
-    .filter-section {
-      gap: 0.375rem;
+    &.checkbox-group {
+      gap: 0.625rem;
 
       label {
         font-size: 0.8125rem;
-      }
+        gap: 0.375rem;
 
-      &.checkbox-group {
-        gap: 0.625rem;
+        input[type="checkbox"] {
+          width: 1.125rem;
+          height: 1.125rem;
 
-        label {
-          font-size: 0.8125rem;
-          gap: 0.375rem;
-
-          input[type="checkbox"] {
-            width: 1rem;
-            height: 1rem;
-
-            &:checked::before {
-              font-size: 0.75rem;
-            }
+          &:checked::before {
+            font-size: 0.75rem;
           }
         }
       }
+    }
 
-      .tags {
-        .tag {
-          padding: 0.375rem 0.625rem;
-          font-size: 0.8125rem;
-          min-height: 1.75rem;
-        }
-      }
-
-      .range-row,
-      .date-range {
-        gap: 0.375rem;
-
-        .filter-input {
-          padding: 0.375rem;
-          font-size: 0.8125rem;
-          height: 2rem;
-          max-width: 7rem;
-        }
-
-        span {
-          font-size: 0.8125rem;
-        }
-      }
-
-      .filter-select {
-        padding: 0.375rem;
+    .tags {
+      .tag {
         font-size: 0.8125rem;
-        height: 2rem;
-        background-size: 0.625rem;
+        padding: 0.375rem 0.625rem;
+        min-height: 2.5rem;
       }
     }
 
-    .filter-bottom {
-      gap: 0.375rem;
-
-      .cancel-btn,
-      .save-btn {
-        padding: 0.375rem;
-        font-size: 0.8125rem;
-        height: 2rem;
+    .range-row,
+    .date-range {
+      .filter-input {
+        font-size: 0.9375rem;
+        padding: 0.5rem;
+        height: 2.5rem;
       }
+
+      span {
+        font-size: 0.8125rem;
+      }
+    }
+
+    .filter-select {
+      font-size: 0.9375rem;
+      padding: 0.5rem;
+      height: 2.5rem;
+      background-size: 0.625rem;
+    }
+  }
+
+  .filter-bottom {
+    gap: 0.5rem;
+    padding: 0.625rem;
+
+    .cancel-btn,
+    .save-btn {
+      font-size: 0.9375rem;
+      padding: 0.5rem;
+      height: 2.5rem;
     }
   }
 }
@@ -424,101 +423,105 @@
 /* Mobile (≤600px) */
 @media screen and (max-width: 37.5rem) {
   .filter-blur {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
   }
 
   .filter-panel {
     width: 95vw;
-    max-width: 20rem;
+    max-width: 22rem;
     padding: 0.5rem;
-    border-radius: 0.5rem;
-    max-height: 75vh;
+    border-radius: 0.75rem;
+    max-height: 90vh;
+  }
 
-    .filter-header {
-      h2 {
-        font-size: 1rem;
-      }
+  .filter-content {
+    max-height: calc(90vh - 4rem);
+  }
 
-      .close-btn {
-        width: 1.5rem;
-        height: 1.5rem;
-        font-size: 0.875rem;
-      }
+  .filter-header {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--PrimaryColor);
+
+    h1 {
+      font-size: 1rem;
     }
 
-    .filter-content {
+    .close-btn {
+      width: 2.25rem;
+      height: 2.25rem;
+      font-size: 1.125rem;
+
+      svg {
+        width: 1.125rem;
+        height: 1.125rem;
+      }
+    }
+  }
+
+  .filter-section {
+    padding: 0 0.5rem 0.5rem 0.5rem;
+
+    label {
+      font-size: 0.75rem;
+    }
+
+    &.checkbox-group {
       gap: 0.5rem;
-      padding: 0 0.25rem;
-    }
-
-    .filter-section {
-      gap: 0.25rem;
 
       label {
         font-size: 0.75rem;
-      }
+        gap: 0.25rem;
 
-      &.checkbox-group {
-        gap: 0.5rem;
+        input[type="checkbox"] {
+          width: 1rem;
+          height: 1rem;
 
-        label {
-          font-size: 0.75rem;
-          gap: 0.25rem;
-
-          input[type="checkbox"] {
-            width: 0.875rem;
-            height: 0.875rem;
-
-            &:checked::before {
-              font-size: 0.625rem;
-            }
+          &:checked::before {
+            font-size: 0.625rem;
           }
         }
       }
+    }
 
-      .tags {
-        .tag {
-          padding: 0.25rem 0.5rem;
-          font-size: 0.75rem;
-          min-height: 1.5rem;
-        }
-      }
-
-      .range-row,
-      .date-range {
-        gap: 0.25rem;
-
-        .filter-input {
-          padding: 0.25rem;
-          font-size: 0.75rem;
-          height: 1.75rem;
-          max-width: 6rem;
-        }
-
-        span {
-          font-size: 0.75rem;
-        }
-      }
-
-      .filter-select {
-        padding: 0.25rem;
+    .tags {
+      .tag {
         font-size: 0.75rem;
-        height: 1.75rem;
-        background-size: 0.5rem;
+        padding: 0.375rem 0.625rem;
+        min-height: 2.25rem;
       }
     }
 
-    .filter-bottom {
-      flex-direction: column;
-      gap: 0.375rem;
-      padding: 0.5rem 0.25rem;
-
-      .cancel-btn,
-      .save-btn {
+    .range-row,
+    .date-range {
+      .filter-input {
+        font-size: 0.875rem;
         padding: 0.375rem;
-        font-size: 0.75rem;
-        height: 1.75rem;
+        height: 2.25rem;
       }
+
+      span {
+        font-size: 0.75rem;
+      }
+    }
+
+    .filter-select {
+      font-size: 0.875rem;
+      padding: 0.375rem;
+      height: 2.25rem;
+      background-size: 0.5rem;
+    }
+  }
+
+  .filter-bottom {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+
+    .cancel-btn,
+    .save-btn {
+      font-size: 0.875rem;
+      padding: 0.5rem;
+      height: 2.25rem;
     }
   }
 }

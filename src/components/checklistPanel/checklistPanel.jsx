@@ -36,52 +36,55 @@ export default function ChecklistPanel({ onClose }) {
   };
 
   return (
-    <div className='filter-blur'>
-      <div className="filter-panel">
-        <div className="header">
-          <h2>Checkliste</h2>
-          <button onClick={onClose} aria-label="Schließen">
-            <IoClose style={{ color: "white" }} />
+    <div className="checklist-overlay">
+      <div className="checklist-container">
+        <div className="checklist-header">
+          <h1 id="checklistTitle">Checkliste</h1>
+          <button onClick={onClose} aria-label="Schließen" title="Checkliste schließen" className="close-btn">
+            <IoClose />
           </button>
         </div>
 
-        <div className="section">
-          <label>Checkliste auswählen</label>
-          <select
-            value={selectedChecklist}
-            onChange={e => {
-              setSelectedChecklist(e.target.value);
-              setCheckedItems([]);
-            }}
-          >
-            <option value="">– Keine ausgewählt –</option>
-            {checklistNames.map(name => (
-              <option key={name} value={name}>{name}</option>
-            ))}
-          </select>
-        </div>
+        <div className="checklist-content">
+          <div className="checklist-section">
+            <label>Checkliste auswählen</label>
+            <select
+              value={selectedChecklist}
+              onChange={e => {
+                setSelectedChecklist(e.target.value);
+                setCheckedItems([]);
+              }}
+              className="checklist-select"
+            >
+              <option value="">– Keine ausgewählt –</option>
+              {checklistNames.map(name => (
+                <option key={name} value={name}>{name}</option>
+              ))}
+            </select>
+          </div>
 
-        {selectedChecklist ? (
-          <div className="section checkbox-group">
-            {exampleChecklists[selectedChecklist].map(item => (
-              <label key={item}>
-                <input
-                  type="checkbox"
-                  checked={checkedItems.includes(item)}
-                  onChange={() => toggleCheck(item)}
-                />
-                {item}
-              </label>
-            ))}
-          </div>
-        ) : (
-          <div className="section">
-            <p>Du hast noch keine Checkliste ausgewählt.</p>
-            <a href="/shop">
-              <button style={{ marginTop: "1rem" }}>Zum Shop</button>
-            </a>
-          </div>
-        )}
+          {selectedChecklist ? (
+            <div className="checklist-section checklist-checkbox-group">
+              {exampleChecklists[selectedChecklist].map(item => (
+                <label key={item}>
+                  <input
+                    type="checkbox"
+                    checked={checkedItems.includes(item)}
+                    onChange={() => toggleCheck(item)}
+                  />
+                  {item}
+                </label>
+              ))}
+            </div>
+          ) : (
+            <div className="checklist-section">
+              <p>Du hast noch keine Checkliste ausgewählt.</p>
+              <a href="/shop">
+                <button className="checklist-link-btn">Zum Shop</button>
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
